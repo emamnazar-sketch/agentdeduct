@@ -1,0 +1,17 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#F6F7F5"/>
+  <circle cx="104" cy="74" r="260" fill="#E8F5ED"/>
+  <rect x="72" y="70" width="1056" height="490" rx="44" fill="white" stroke="#DCE4DD" stroke-width="2"/>
+  <image href="agentdeduct-logo.png" x="112" y="130" width="230" height="165" preserveAspectRatio="xMidYMid meet"/>
+  <text x="380" y="205" fill="#000000" font-family="Arial, Helvetica, sans-serif" font-size="72" font-weight="800">AgentDeduct</text>
+  <text x="384" y="265" fill="#176B47" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">Private real estate expense tracking</text>
+  <text x="112" y="390" fill="#1F2933" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="600">
+    Track expenses, mileage, receipts, and yearly tax reports
+  </text>
+  <text x="112" y="442" fill="#1F2933" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="600">
+    in one local-first place.
+  </text>
+  <rect x="112" y="486" width="282" height="54" rx="27" fill="#176B47"/>
+  <text x="144" y="522" fill="white" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">Test AgentDeduct</text>
+</svg>
+

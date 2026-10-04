@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Send Feedback | AgentDeduct</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar legal-topbar">
+      <div class="brand">
+        <div>
+          <p class="eyebrow">AgentDeduct test</p>
+          <div class="brand-title">
+            <img src="assets/agentdeduct-logo.png" alt="" />
+            <h1>Send Feedback</h1>
+          </div>
+          <p class="tagline">Tell us what felt useful, confusing, missing, or worth improving.</p>
+        </div>
+      </div>
+    </header>
+
+    <main class="shell legal-shell">
+      <section class="panel legal-panel">
+        <form id="feedbackForm" name="agentdeduct-feedback" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="agentdeduct-feedback" />
+          <label class="hidden">
+            Do not fill this out
+            <input name="bot-field" />
+          </label>
+
+          <label>
+            Name
+            <input name="name" type="text" placeholder="Optional" />
+          </label>
+
+          <label>
+            Email
+            <input name="email" type="email" placeholder="Optional" />
+          </label>
+
+          <label>
+            What type of feedback is this?
+            <select name="feedback_type" required>
+              <option value="">Choose one</option>
+              <option>Something confusing</option>
+              <option>Missing feature</option>
+              <option>Receipt scanning issue</option>
+              <option>Report/export issue</option>
+              <option>General idea</option>
+            </select>
+          </label>
+
+          <label>
+            Feedback
+            <textarea name="message" rows="6" placeholder="What should AgentDeduct improve before launch?" required></textarea>
+          </label>
+
+          <button class="primary" type="submit">Submit feedback</button>
+          <p class="ocr-status" id="feedbackStatus">Feedback goes to the AgentDeduct testing sheet. Do not include private tax records or receipt images.</p>
+        </form>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div>
+        <strong>AgentDeduct</strong>
+        <span>Thank you for testing.</span>
+      </div>
+      <nav aria-label="Navigation links">
+        <a href="index.html">Back to app</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms & Conditions</a>
+      </nav>
+    </footer>
+    <script src="feedback.js"></script>
+  </body>
+</html>
