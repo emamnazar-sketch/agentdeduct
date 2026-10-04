@@ -2,259 +2,148 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AgentDeduct</title>
-    <meta name="description" content="Track real estate expenses, mileage, receipts, and yearly tax reports in one private local-first place." />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>AgentDeduct — Keep more of every commission</title>
+    <meta name="description" content="The mileage-first tax deduction app for real estate agents. Track drives, expenses, and deals — 100% private, on your device." />
+    <meta name="theme-color" content="#0d4d2f" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://agentdeduct.netlify.app/" />
+    <meta property="og:url" content="https://agentdeduct.com/" />
     <meta property="og:title" content="AgentDeduct" />
-    <meta property="og:description" content="Track real estate expenses, mileage, receipts, and yearly tax reports in one private local-first place." />
-    <meta property="og:image" content="https://agentdeduct.netlify.app/assets/social-card.png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="1200" />
+    <meta property="og:description" content="The mileage-first tax deduction app for real estate agents. 100% private — your data never leaves your device." />
+    <meta property="og:image" content="https://agentdeduct.com/assets/social-card.png" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="AgentDeduct" />
-    <meta name="twitter:description" content="Private real estate expense tracking for agents." />
-    <meta name="twitter:image" content="https://agentdeduct.netlify.app/assets/social-card.png" />
+    <meta name="twitter:description" content="Keep more of every commission. Mileage, expenses, and deals — private by design." />
+    <meta name="twitter:image" content="https://agentdeduct.com/assets/social-card.png" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" href="assets/agentdeduct-logo.png" />
+    <link rel="apple-touch-icon" href="assets/agentdeduct-logo.png" />
     <link rel="stylesheet" href="styles.css" />
+    <script>
+      try {
+        var s = JSON.parse(localStorage.getItem("agentDeduct.db.v2") || "{}").settings || {};
+        var mode = s.darkMode || "auto";
+        var dark = mode === "dark" || (mode === "auto" && matchMedia("(prefers-color-scheme: dark)").matches);
+        if (dark) document.documentElement.setAttribute("data-theme", "dark");
+      } catch (e) {}
+    </script>
   </head>
   <body>
-    <header class="topbar">
-      <div class="brand">
-        <div>
-          <p class="eyebrow">Real estate tax tracker</p>
-          <div class="brand-title">
-            <img src="assets/agentdeduct-logo.png" alt="" />
-            <h1>AgentDeduct</h1>
-          </div>
-          <p class="tagline">Track real estate expenses, mileage, receipts, and yearly tax reports in one private place.</p>
+    <div class="app">
+      <header class="topbar">
+        <div class="brand">
+          <img src="assets/agentdeduct-logo.png" alt="AgentDeduct logo" />
+          <span>AgentDeduct</span>
         </div>
-      </div>
-      <div class="top-actions">
-        <button class="top-receipt" type="button" id="topAttachReceipt">Attach receipt image/PDF</button>
-        <a class="top-link" href="feedback.html">Send Feedback</a>
-        <div class="year-picker">
-          <label for="taxYear">Tax year</label>
-          <select id="taxYear"></select>
-        </div>
-      </div>
-    </header>
+        <div class="year-pill no-print">📅 <select id="yearSelect" aria-label="Tax year"></select></div>
+        <button class="year-pill no-print" id="settingsBtn" type="button" aria-label="Settings" style="margin-left:8px;">⚙️</button>
+      </header>
 
-    <main class="shell">
-      <section class="report-controls" aria-label="Report view controls">
-        <div>
-          <p class="eyebrow">Report view</p>
-          <strong id="reportRangeLabel">Yearly report</strong>
-        </div>
-        <div class="period-controls">
-          <div class="segmented" role="group" aria-label="Choose report period">
-            <button class="active" type="button" id="yearlyView">Yearly</button>
-            <button type="button" id="monthlyView">Monthly</button>
-          </div>
-          <label class="month-picker hidden" id="monthPickerWrap">
-            Month
-            <input id="reportMonth" type="month" />
-          </label>
-        </div>
-      </section>
-
-      <section class="agent-dashboard" aria-label="Agent dashboard">
-        <article class="dashboard-total">
-          <div>
-            <span>Total deductions</span>
-            <strong id="deductibleTotal">$0.00</strong>
-            <small id="periodCaption">This year</small>
-          </div>
-          <div class="donut" id="deductionDonut" aria-hidden="true"></div>
-        </article>
-
-        <div class="dashboard-stats">
-          <article class="dash-stat">
-            <span>Expenses</span>
-            <strong id="expenseCount">0</strong>
-            <small>Saved</small>
-          </article>
-          <article class="dash-stat">
-            <span>Mileage</span>
-            <strong id="mileageTotal">0</strong>
-            <small>Miles</small>
-          </article>
-          <article class="dash-stat">
-            <span>Receipts</span>
-            <strong id="receiptCount">0</strong>
-            <small>Attached</small>
-          </article>
-          <article class="dash-stat">
-            <span>Reports</span>
-            <strong id="reportCount">0</strong>
-            <small>Ready</small>
-          </article>
-        </div>
-
-        <article class="recent-card">
-          <div class="panel-header compact">
-            <div>
-              <p class="eyebrow">Activity</p>
-              <h2>Recent expenses</h2>
-            </div>
-            <span id="spentTotal">$0.00 spent</span>
-          </div>
-          <div class="recent-list" id="recentExpenses"></div>
-        </article>
-      </section>
-
-      <section class="privacy-strip" aria-label="Privacy notice">
-        <div>
-          <strong>Test version</strong>
-          <span>Records stay on this device/browser. Download a backup before clearing browser data or switching devices.</span>
-        </div>
-        <span class="privacy-pill">Review before tax use</span>
-      </section>
-
-      <section class="workspace">
-        <form id="expenseForm" class="panel">
-          <div class="panel-header">
-            <div>
-              <p class="eyebrow">Manual entry</p>
-              <h2>Add custom expense</h2>
-            </div>
-          </div>
-
-          <div class="field-grid">
-            <label>
-              Date
-              <input id="date" type="date" required />
-            </label>
-            <label>
-              Category
-              <select id="category" required></select>
-            </label>
-          </div>
-
-          <div class="field-grid" id="amountFields">
-            <label>
-              Amount spent
-              <input id="amount" type="number" step="0.01" min="0" placeholder="0.00" />
-            </label>
-            <label>
-              Business use %
-              <input id="businessUse" type="number" min="1" max="100" value="100" />
-            </label>
-          </div>
-
-          <div class="field-grid hidden" id="mileageFields">
-            <label>
-              Business miles
-              <input id="miles" type="number" step="0.1" min="0" placeholder="0" />
-            </label>
-            <label>
-              IRS rate
-              <input id="mileageRate" type="number" step="0.001" min="0" value="0.725" />
-            </label>
-          </div>
-
-          <label>
-            Vendor or payee
-            <input id="vendor" type="text" placeholder="Brokerage, MLS, printer, restaurant" required />
-          </label>
-
-          <label>
-            Business purpose
-            <textarea id="purpose" rows="3" placeholder="Example: client showing, listing marketing, license renewal" required></textarea>
-          </label>
-
-          <input id="receipt" class="hidden-file" type="file" accept="image/*,.pdf" />
-          <p class="attached-file" id="receiptName">No receipt attached</p>
-          <p class="ocr-status" id="ocrStatus">Receipt auto-fill is experimental. Review vendor, date, amount, and category before saving.</p>
-
-          <p class="hint" id="deductionHint"></p>
-
-          <button class="primary" type="submit">Save expense</button>
-        </form>
-
-        <section class="panel report-panel">
-          <div class="panel-header">
-            <div>
-              <p class="eyebrow">Tax-time report</p>
-              <h2>Category totals</h2>
-            </div>
-            <div class="button-row">
-              <button class="ghost" type="button" id="exportCsv">Export CSV</button>
-              <button class="ghost" type="button" id="exportBackup">Download data</button>
-              <button class="ghost" type="button" id="importBackup">Import data</button>
-              <button class="ghost" type="button" id="printReport">Print</button>
-            </div>
-          </div>
-          <input id="backupFile" class="hidden-file" type="file" accept="application/json,.json" />
-
-          <div id="categoryTotals" class="category-list"></div>
-
-          <div class="note">
-            AgentDeduct is a recordkeeping estimate tool. Confirm filing treatment with a tax professional.
-          </div>
-        </section>
-      </section>
-
-      <section class="panel">
-        <div class="panel-header">
-          <div>
-            <p class="eyebrow">Saved records</p>
-            <h2>Expenses and receipts</h2>
-          </div>
-          <button class="danger" type="button" id="clearAll">Clear test data</button>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Category</th>
-                <th>Vendor</th>
-                <th>Spent</th>
-                <th>Deductible</th>
-                <th>Receipt</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody id="expenseRows"></tbody>
-          </table>
-        </div>
-      </section>
-    </main>
-
-    <footer class="site-footer">
-      <div>
-        <strong>AgentDeduct</strong>
-        <span>Recordkeeping estimate tool. Not tax, legal, or financial advice.</span>
-      </div>
-      <nav aria-label="Legal links">
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="terms.html">Terms & Conditions</a>
-        <a href="feedback.html">Send Feedback</a>
-      </nav>
-    </footer>
-
-    <div class="modal-backdrop hidden" id="welcomeModal" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle">
-      <section class="modal-card">
-        <p class="eyebrow">Public test version</p>
-        <h2 id="welcomeTitle">Before you start</h2>
-        <p>
-          AgentDeduct stores expense records, mileage, and receipts on this device/browser. The developer and app owner do not store your tax records.
-        </p>
-        <p>
-          Download your data backup before clearing browser data, using private browsing, or switching devices. Receipt auto-fill is experimental, so review everything before saving.
-        </p>
-        <button class="primary" type="button" id="acceptWelcome">I understand</button>
-      </section>
+      <main id="views">
+        <section class="view" id="view-home" aria-label="Home"></section>
+        <section class="view" id="view-drives" aria-label="Drives"></section>
+        <section class="view" id="view-deals" aria-label="Deals"></section>
+        <section class="view" id="view-reports" aria-label="Reports"></section>
+        <section class="view" id="view-settings" aria-label="Settings"></section>
+      </main>
     </div>
 
-    <template id="emptyState">
-      <tr>
-        <td colspan="7" class="empty">No expenses yet. Add a custom expense or attach a receipt to start AgentDeduct.</td>
-      </tr>
-    </template>
+    <nav class="tabbar no-print" aria-label="Main navigation">
+      <div class="tabbar-in">
+        <button class="tab active" data-tab="home" type="button"><span class="ti">🏠</span>Home</button>
+        <button class="tab" data-tab="drives" type="button"><span class="ti">🚗</span>Drives</button>
+        <button type="button" id="fabAdd" aria-label="Add expense or drive">
+          <span class="fab">+</span>
+          <span class="fab-label">Add</span>
+        </button>
+        <button class="tab" data-tab="deals" type="button"><span class="ti">🏘️</span>Deals</button>
+        <button class="tab" data-tab="reports" type="button"><span class="ti">📊</span>Reports</button>
+      </div>
+    </nav>
+
+    <div class="scrim" id="scrim"></div>
+    <div class="sheet" id="addSheet" role="dialog" aria-modal="true" aria-label="Add expense or drive">
+      <div class="grabber"></div>
+      <h2 id="sheetTitle">Log expense</h2>
+      <button class="btn-inline ghost" id="sheetClose" type="button" style="position:absolute;top:14px;right:16px;">Close</button>
+      <div class="seg" role="tablist">
+        <button type="button" id="segExpense" class="active">💰 Expense</button>
+        <button type="button" id="segDrive">🚗 Drive</button>
+      </div>
+
+      <div id="paneExpense">
+        <div class="field"><label for="fAmount">Amount</label>
+          <div class="amount-wrap"><span class="cur">$</span>
+          <input id="fAmount" class="amount-input" type="number" inputmode="decimal" step="0.01" min="0" placeholder="0.00" /></div>
+        </div>
+        <div class="field"><label>Category</label><div class="cat-grid" id="catGrid"></div></div>
+        <div class="field"><label for="fVendor">Vendor / what was it?</label>
+          <input id="fVendor" type="text" list="vendorList" placeholder="MLS, photographer, brokerage…" autocomplete="off" />
+          <datalist id="vendorList"></datalist>
+        </div>
+        <div class="field" id="giftWrap" style="display:none;"><label for="fGiftFor">Who was the gift for?</label>
+          <input id="fGiftFor" type="text" placeholder="Client name" autocomplete="off" />
+        </div>
+        <div class="warn" id="giftWarn" style="display:none;"></div>
+        <div class="field"><label for="fDate">Date</label><input id="fDate" type="date" /></div>
+        <div class="field"><label for="fDeal">Property (deal)</label><select id="fDeal"></select></div>
+        <div class="field"><label>Was this all for work?</label>
+          <div class="choice-row">
+            <button type="button" class="choice active" id="choiceYes">Yes, 100%</button>
+            <button type="button" class="choice" id="choicePartly">Partly</button>
+          </div>
+          <div id="pctWrap" style="display:none;margin-top:8px;">
+            <label for="fPct" class="hint">What % was for work?</label>
+            <input id="fPct" type="number" min="1" max="100" value="80" />
+          </div>
+        </div>
+        <div class="field"><label for="fPurpose">Purpose / note</label>
+          <textarea id="fPurpose" rows="2" placeholder="Client showing, listing marketing…"></textarea>
+        </div>
+        <div class="field"><label>Receipt</label>
+          <button class="receipt-btn" id="receiptBtn" type="button"><span class="ri">📸</span><span id="receiptName">No receipt attached</span></button>
+          <input id="receiptInput" class="hidden-file" type="file" accept="image/*,.pdf" capture="environment" />
+          <p class="ocr-status" id="ocrStatus"></p>
+        </div>
+        <button class="btn-primary" id="saveExpenseBtn" type="button">Save expense</button>
+      </div>
+
+      <div id="paneDrive" style="display:none;">
+        <div class="field"><label for="dMiles">Miles</label>
+          <input id="dMiles" class="amount-input" type="number" inputmode="decimal" step="0.1" min="0" placeholder="0" />
+        </div>
+        <div class="field"><label for="dPurpose">Purpose</label>
+          <input id="dPurpose" type="text" placeholder="Showing — 123 Main St" autocomplete="off" />
+        </div>
+        <div class="field"><label for="dDate">Date</label><input id="dDate" type="date" /></div>
+        <div class="field"><label for="dDeal">Property (deal)</label><select id="dDeal"></select></div>
+        <div class="field"><label for="dFrom">From (optional)</label><input id="dFrom" type="text" autocomplete="off" /></div>
+        <div class="field"><label for="dTo">To (optional)</label><input id="dTo" type="text" autocomplete="off" /></div>
+        <p class="hint" id="driveRateHint"></p>
+        <button class="btn-primary" id="saveDriveBtn" type="button">Save drive</button>
+      </div>
+    </div>
+
+    <div class="toast" id="toast" role="status"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
-    <script src="app.js"></script>
+    <script src="js/store.js"></script>
+    <script src="js/track.js"></script>
+    <script src="js/ocr.js"></script>
+    <script src="js/gps.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/views-home.js"></script>
+    <script src="js/views-add.js"></script>
+    <script src="js/views-drives.js"></script>
+    <script src="js/views-deals.js"></script>
+    <script src="js/views-reports.js"></script>
+    <script src="js/views-settings.js"></script>
+    <script>
+      if ("serviceWorker" in navigator && location.protocol.indexOf("http") === 0) {
+        window.addEventListener("load", function () {
+          navigator.serviceWorker.register("sw.js").catch(function () {});
+        });
+      }
+    </script>
   </body>
 </html>
