@@ -807,11 +807,11 @@ function trackEvent(event) {
   });
 
   if (navigator.sendBeacon) {
-    navigator.sendBeacon("/.netlify/functions/track", new Blob([payload], { type: "application/json" }));
+    navigator.sendBeacon("/track", new Blob([payload], { type: "application/json" }));
     return;
   }
 
-  fetch("/.netlify/functions/track", {
+  fetch("/track", {
     method: "POST",
     headers: { "content-type": "application/json" },
     body: payload,

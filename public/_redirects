@@ -1,2 +1,0 @@
-# Keep the original Netlify function URLs working after the migration:
-/.netlify/functions/* /:splat 200

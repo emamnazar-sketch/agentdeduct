@@ -22,7 +22,7 @@ form.addEventListener("submit", async (event) => {
 });
 
 async function loadDashboard(token) {
-  const response = await fetch("/.netlify/functions/dashboard", {
+  const response = await fetch("/dashboard", {
     headers: {
       "x-admin-token": token,
     },
