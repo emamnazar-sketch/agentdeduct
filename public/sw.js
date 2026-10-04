@@ -1,24 +1,24 @@
 /* AgentDeduct v2 — offline-first service worker (versioned cache). */
-var CACHE = "agentdeduct-v2-1";
+var CACHE = "agentdeduct-v2-2";
 var CORE = [
-  "/",
-  "/index.html",
-  "/styles.css",
-  "/manifest.json",
-  "/js/store.js",
-  "/js/track.js",
-  "/js/ocr.js",
-  "/js/gps.js",
-  "/js/app.js",
-  "/js/views-home.js",
-  "/js/views-add.js",
-  "/js/views-drives.js",
-  "/js/views-deals.js",
-  "/js/views-reports.js",
-  "/js/views-settings.js",
-  "/assets/icon-192.png",
-  "/assets/icon-512.png",
-  "/assets/agentdeduct-logo.png",
+  "/?v=2",
+  "/index.html?v=2",
+  "/styles.css?v=2",
+  "/manifest.json?v=2",
+  "/js/store.js?v=2",
+  "/js/track.js?v=2",
+  "/js/ocr.js?v=2",
+  "/js/gps.js?v=2",
+  "/js/app.js?v=2",
+  "/js/views-home.js?v=2",
+  "/js/views-add.js?v=2",
+  "/js/views-drives.js?v=2",
+  "/js/views-deals.js?v=2",
+  "/js/views-reports.js?v=2",
+  "/js/views-settings.js?v=2",
+  "/assets/icon-192.png?v=2",
+  "/assets/icon-512.png?v=2",
+  "/assets/agentdeduct-logo.png?v=2",
 ];
 
 self.addEventListener("install", function (e) {
@@ -45,7 +45,7 @@ self.addEventListener("fetch", function (e) {
         var copy = res.clone();
         caches.open(CACHE).then(function (c) { c.put(e.request, copy); });
         return res;
-      }).catch(function () { return caches.match("/index.html"); })
+      }).catch(function () { return caches.match("/index.html?v=2"); })
     );
     return;
   }
