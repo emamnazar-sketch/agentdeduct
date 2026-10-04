@@ -113,7 +113,13 @@
     }).join("");
   }
 
-  function boot() {
+  async function boot() {
+    // Google sign-in gate: when auth is configured, the app requires sign-in.
+    // If auth isn't configured (or we're offline), the app runs as before.
+    var auth = { authEnabled: false, signedIn: false };
+    try { auth = await AD.auth.ensure(); } catch (e) {}
+    if (auth.authEnabled && !auth.signedIn) { AD.auth.renderGate(); return; }
+
     AD.db = AD.store.load();
     AD.year = String(new Date().getFullYear());
     applyTheme();
@@ -148,6 +154,7 @@
     } catch (e) {}
 
     showTab("home");
+    if (AD.auth) AD.auth.afterBoot(auth);
   }
 
   window.AD = window.AD || {};

@@ -4,21 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>AgentDeduct — Keep more of every commission</title>
-    <meta name="description" content="The mileage-first tax deduction app for real estate agents. Track drives, expenses, and deals — 100% private, on your device." />
+    <meta name="description" content="The mileage-first tax deduction app for real estate agents. Track drives, expenses, and deals — private by design, with optional Google Drive backup." />
     <meta name="theme-color" content="#0d4d2f" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://agentdeduct.com/" />
     <meta property="og:title" content="AgentDeduct" />
-    <meta property="og:description" content="The mileage-first tax deduction app for real estate agents. 100% private — your data never leaves your device." />
+    <meta property="og:description" content="The mileage-first tax deduction app for real estate agents. Private by design — your data stays yours." />
     <meta property="og:image" content="https://agentdeduct.com/assets/social-card.png" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="AgentDeduct" />
     <meta name="twitter:description" content="Keep more of every commission. Mileage, expenses, and deals — private by design." />
     <meta name="twitter:image" content="https://agentdeduct.com/assets/social-card.png" />
-    <link rel="manifest" href="manifest.json?v=2" />
-    <link rel="icon" href="assets/agentdeduct-logo.png?v=2" />
-    <link rel="apple-touch-icon" href="assets/agentdeduct-logo.png?v=2" />
-    <link rel="stylesheet" href="styles.css?v=2" />
+    <link rel="manifest" href="manifest.json?v=3" />
+    <link rel="icon" href="assets/agentdeduct-logo.png?v=3" />
+    <link rel="apple-touch-icon" href="assets/agentdeduct-logo.png?v=3" />
+    <link rel="stylesheet" href="styles.css?v=3" />
     <script>
       try {
         var s = JSON.parse(localStorage.getItem("agentDeduct.db.v2") || "{}").settings || {};
@@ -32,7 +32,7 @@
     <div class="app">
       <header class="topbar">
         <div class="brand">
-          <img src="assets/agentdeduct-logo.png?v=2" alt="AgentDeduct logo" />
+          <img src="assets/agentdeduct-logo.png?v=3" alt="AgentDeduct logo" />
           <span>AgentDeduct</span>
         </div>
         <div class="year-pill no-print">📅 <select id="yearSelect" aria-label="Tax year"></select></div>
@@ -127,21 +127,22 @@
     <div class="toast" id="toast" role="status"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
-    <script src="js/store.js?v=2"></script>
-    <script src="js/track.js?v=2"></script>
-    <script src="js/ocr.js?v=2"></script>
-    <script src="js/gps.js?v=2"></script>
-    <script src="js/app.js?v=2"></script>
-    <script src="js/views-home.js?v=2"></script>
-    <script src="js/views-add.js?v=2"></script>
-    <script src="js/views-drives.js?v=2"></script>
-    <script src="js/views-deals.js?v=2"></script>
-    <script src="js/views-reports.js?v=2"></script>
-    <script src="js/views-settings.js?v=2"></script>
+    <script src="js/store.js?v=3"></script>
+    <script src="js/track.js?v=3"></script>
+    <script src="js/ocr.js?v=3"></script>
+    <script src="js/gps.js?v=3"></script>
+    <script src="js/auth.js?v=3"></script>
+    <script src="js/app.js?v=3"></script>
+    <script src="js/views-home.js?v=3"></script>
+    <script src="js/views-add.js?v=3"></script>
+    <script src="js/views-drives.js?v=3"></script>
+    <script src="js/views-deals.js?v=3"></script>
+    <script src="js/views-reports.js?v=3"></script>
+    <script src="js/views-settings.js?v=3"></script>
     <script>
       if ("serviceWorker" in navigator && location.protocol.indexOf("http") === 0) {
         window.addEventListener("load", function () {
-          navigator.serviceWorker.register("sw.js?v=2").catch(function () {});
+          navigator.serviceWorker.register("sw.js?v=3").catch(function () {});
         });
       }
     </script>

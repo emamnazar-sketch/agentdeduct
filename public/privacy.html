@@ -26,7 +26,9 @@
         <p>
           AgentDeduct is designed so expense records, mileage entries, receipt files, vendor names,
           amounts, categories, and tax reports stay on the user's own device/browser. The app owner
-          and developer do not receive or store those records.
+          and developer do not receive or store those records — the only things kept on our servers
+          are your Google sign-in identity (name, email, profile photo) and, if you link Google Drive,
+          an encrypted copy of your Drive access token so backups can run.
         </p>
 
         <h2>Anonymous activity counts</h2>
@@ -52,11 +54,28 @@
           and should be reviewed before saving.
         </p>
 
+        <h2>Google sign-in</h2>
+        <p>
+          AgentDeduct uses Google sign-in only — no passwords are created or stored. When you sign
+          in, we receive your name, email address, and profile photo from Google, and keep a secure
+          sign-in session on your device for 30 days. You can sign out anytime from Settings.
+        </p>
+
+        <h2>Google Drive backup (optional)</h2>
+        <p>
+          If you choose to link Google Drive, AgentDeduct backs up your expenses, drives, properties,
+          and receipt photos to a private <strong>AgentDeduct</strong> folder in your own Google Drive.
+          The app asks Google only for permission to manage files it creates — it cannot see or touch
+          anything else in your Drive. Your Google Drive access token is encrypted before it is stored.
+          You can unlink anytime by signing out and revoking access in your Google account settings;
+          files already backed up stay in your Drive until you delete them there.
+        </p>
+
         <h2>Backups and deletion</h2>
         <p>
           Users can export CSV reports, download local data backups, and clear local test data. Because
           records are stored locally, clearing browser data, changing devices, or using private browsing
-          may remove saved records unless the user has downloaded a backup.
+          may remove saved records unless the user has downloaded a backup or linked Google Drive.
         </p>
 
         <h2>Feedback</h2>

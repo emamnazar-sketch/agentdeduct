@@ -260,3 +260,42 @@ img { max-width: 100%; }
   .view.active { display: block; }
   .card { box-shadow: none; break-inside: avoid; }
 }
+
+/* ---- Google sign-in gate ---- */
+.gate-veil {
+  position: fixed; inset: 0; z-index: 200;
+  background: var(--bg-grad, #f4f6f3);
+  display: flex; align-items: center; justify-content: center; padding: 24px;
+}
+.gate-card {
+  width: 100%; max-width: 380px; text-align: center;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 24px;
+  padding: 40px 28px 32px; box-shadow: var(--shadow);
+}
+.gate-logo { width: 72px; height: 72px; border-radius: 18px; margin-bottom: 12px; }
+.gate-card h1 { font-size: 30px; letter-spacing: -0.02em; margin: 0 0 6px; }
+.gate-sub { color: var(--muted); font-size: 15px; margin: 0 0 26px; line-height: 1.45; }
+.gbtn {
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  background: #fff; color: #1f1f1f; border: 1px solid #dadce0; border-radius: 999px;
+  padding: 13px 20px; font-size: 16px; font-weight: 600; text-decoration: none;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12); transition: transform 120ms ease;
+}
+.gbtn:active { transform: scale(0.98); }
+.gate-note { color: var(--muted); font-size: 13px; margin: 22px 0 0; line-height: 1.5; }
+body.is-gated { overflow: hidden; }
+
+/* ---- Drive link modal ---- */
+.modal-veil {
+  position: fixed; inset: 0; z-index: 190; background: rgba(15, 25, 18, 0.55);
+  display: flex; align-items: flex-end; justify-content: center; padding: 0;
+}
+.modal-card {
+  width: 100%; max-width: 480px; background: var(--surface); color: var(--ink);
+  border-radius: 24px 24px 0 0; padding: 26px 24px calc(20px + env(safe-area-inset-bottom));
+  text-align: center; box-shadow: var(--shadow);
+}
+.modal-ico { font-size: 44px; margin-bottom: 6px; }
+.modal-card h2 { font-size: 22px; letter-spacing: -0.01em; margin: 0 0 8px; }
+.modal-sub { color: var(--muted); font-size: 15px; line-height: 1.55; margin: 0 0 14px; }
+.modal-sub b { color: var(--ink); }
