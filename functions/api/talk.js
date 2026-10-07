@@ -13,7 +13,7 @@ const SYSTEM = [
   'Drive: {"type":"drive","miles":22.5,"destination":"Maple St","purpose":"Showing at Maple St"}',
   'Unknown: {"type":"unknown"}',
   "Categories: mileage, desk_fees, mls_dues, eo_insurance, marketing, photo_staging, signage, client_gifts, phone_internet, home_office, license_edu, office_tech, meals, vehicle_actual, prof_services, other.",
-  "Rules: amount is a number, no $ sign. mileage entries are type drive, never expense. If no amount (expense) or no miles (drive) can be found, return unknown. Keep vendor/destination short.",
+  "Rules: amount is a number, no $ sign. mileage entries are type drive, never expense. If no amount (expense) or no miles (drive) can be found, return unknown. Keep vendor/destination short. Copy every number EXACTLY as written in the message — never round, estimate, or adjust it. If the message says $45, amount must be 45, not 45.5. If it says 22 miles, miles must be 22.",
 ].join("\n");
 
 export async function onRequest(context) {
@@ -54,7 +54,7 @@ export async function onRequest(context) {
       parsed = extractJson(String(out.choices[0].message.content || ""));
     }
     if (!parsed || typeof parsed.type !== "string") return json({ ok: false, fallback: true }, 200);
-    return json({ ok: true, parsed: sanitize(parsed) });
+    return json({ ok: true, parsed: sanitize(parsed, message) });
   } catch (e) {
     return json({ ok: false, fallback: true }, 200);
   }
@@ -82,9 +82,17 @@ function str(v, max) {
   return String(v == null ? "" : v).trim().slice(0, max);
 }
 
-function sanitize(p) {
+function sanitize(p, message) {
+  // Pin numbers to the exact figures stated in the message.
+  // The small model sometimes "creatively" adjusts numbers (22 -> 22.5);
+  // for a tax app the stated number is the truth. Only pins when the
+  // message states exactly one unambiguous number for the record type —
+  // with several numbers present we keep the AI's pick and the confirm
+  // card lets the user verify.
   if (p.type === "expense") {
-    const amount = num(p.amount, 1000000);
+    let amount = num(p.amount, 1000000);
+    const exact = statedNumber(message || "", "expense");
+    if (exact > 0) amount = Math.round(exact * 100) / 100;
     if (!amount) return { type: "unknown" };
     return {
       type: "expense",
@@ -96,7 +104,9 @@ function sanitize(p) {
     };
   }
   if (p.type === "drive") {
-    const miles = num(p.miles, 2000);
+    let miles = num(p.miles, 2000);
+    const exact = statedNumber(message || "", "drive");
+    if (exact > 0) miles = Math.round(exact * 10) / 10;
     if (!miles) return { type: "unknown" };
     return {
       type: "drive",
@@ -106,6 +116,22 @@ function sanitize(p) {
     };
   }
   return { type: "unknown" };
+}
+
+function statedNumber(message, kind) {
+  const nums = [];
+  let m;
+  if (kind === "expense") {
+    const dollarRe = /\$\s*(\d{1,6}(?:\.\d{1,2})?)/g;
+    while ((m = dollarRe.exec(message))) nums.push(Number(m[1]));
+    const wordsRe = /(\d{1,6}(?:\.\d{1,2})?)\s*(?:dollars|bucks)\b/gi;
+    while ((m = wordsRe.exec(message))) nums.push(Number(m[1]));
+  } else {
+    const milesRe = /(\d{1,4}(?:\.\d+)?)\s*miles?\b/gi;
+    while ((m = milesRe.exec(message))) nums.push(Number(m[1]));
+  }
+  const uniq = [...new Set(nums)].filter((n) => n > 0);
+  return uniq.length === 1 ? uniq[0] : 0;
 }
 
 function json(body, status = 200) {
