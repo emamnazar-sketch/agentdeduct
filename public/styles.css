@@ -325,4 +325,6 @@ body.is-gated { overflow: hidden; }
 .site-footer a { color: var(--green); font-weight: 700; }
 .primary { display: inline-block; background: var(--green); color: #fff; border-radius: 999px; padding: 13px 26px; font-size: 16px; font-weight: 700; text-decoration: none; border: 0; cursor: pointer; }
 .primary:disabled { opacity: 0.6; cursor: default; }
+.legal-panel .primary { width: 100%; margin-top: 4px; }
+.site-footer nav { display: flex; gap: 18px; justify-content: center; margin-top: 10px; flex-wrap: wrap; }
 .hidden { display: none !important; }
