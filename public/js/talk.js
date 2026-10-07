@@ -80,10 +80,19 @@
           var rec = new SR();
           rec.lang = "en-US";
           rec.interimResults = false;
+          rec.maxAlternatives = 5;
           mic.textContent = "🔴";
           rec.onresult = function (ev) {
-            var t = ev.results[0][0].transcript;
-            input.value = t;
+            var res = ev.results[0];
+            var t = res[0].transcript, best = t;
+            // The recognizer often returns number-words in its top guess but
+            // digits in a lower alternative — for a money app, digits win.
+            if (!/\d/.test(t)) {
+              for (var i = 1; i < res.length; i++) {
+                if (res[i] && /\d/.test(res[i].transcript)) { best = res[i].transcript; break; }
+              }
+            }
+            input.value = ADTalkParse.normalizeNumbers(best);
             mic.textContent = "🎤";
             input.focus();
           };
@@ -161,6 +170,10 @@
   }
 
   function send(text) {
+    // Normalize number-words to digits first, so the AI and the local
+    // parser both see "75.50" instead of "seventy five fifty" — and the
+    // user sees exactly what was understood.
+    text = ADTalkParse.normalizeNumbers(text);
     userSay(text);
     // Correction flow: merge into the pending confirm.
     if (pending && pending.awaitingFix) {
@@ -186,9 +199,51 @@
     showConfirm();
   }
 
+  // Tap-to-edit: the amount/miles on the confirm card is a button that
+  // swaps into an inline number field, so fixing a number never needs
+  // another voice round-trip.
+  function editBtn(which, label, ariaLabel) {
+    return '<button type="button" class="tedit-num" data-edit="' + which +
+      '" aria-label="' + ariaLabel + '">' + esc(label) + "</button>";
+  }
+
+  function editNumber(cardEl, which) {
+    var p = pending && pending.data;
+    if (!p) return;
+    var btn = cardEl.querySelector('.tedit-num[data-edit="' + which + '"]');
+    if (!btn) return;
+    var cur = which === "miles" ? p.miles : p.amount;
+    var inp = document.createElement("input");
+    inp.type = "number";
+    inp.step = which === "miles" ? "0.1" : "0.01";
+    inp.min = "0";
+    inp.value = cur;
+    inp.className = "tedit-input";
+    inp.setAttribute("aria-label", which === "miles" ? "Edit miles" : "Edit amount");
+    inp.setAttribute("inputmode", "decimal");
+    btn.replaceWith(inp);
+    inp.focus();
+    if (inp.select) inp.select();
+    var done = false;
+    function commit(save) {
+      if (done) return; done = true;
+      var v = Number(String(inp.value).replace(/[^0-9.]/g, ""));
+      if (save && v > 0 && v <= 1000000) {
+        if (which === "miles") p.miles = Math.round(v * 10) / 10;
+        else p.amount = Math.round(v * 100) / 100;
+      }
+      showConfirm();
+    }
+    inp.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") commit(true);
+      else if (e.key === "Escape") commit(false);
+    });
+    inp.addEventListener("blur", function () { commit(true); });
+  }
+
   function describe(p) {
     if (p.type === "expense") {
-      var lines = ["💰 <b>" + money(p.amount) + "</b> · " + esc(catLabel(p.categoryId))];
+      var lines = ["💰 <b>" + editBtn("amount", money(p.amount), "Edit amount") + "</b> · " + esc(catLabel(p.categoryId))];
       if (p.vendor) lines.push("🏪 " + esc(p.vendor));
       if (p.purpose) lines.push("📝 " + esc(p.purpose));
       if (p.categoryId === "client_gifts" && p.amount > 25) {
@@ -196,7 +251,7 @@
       }
       return lines.join("<br>");
     }
-    var dl = ["🚗 <b>" + p.miles + " miles</b>"];
+    var dl = ["🚗 <b>" + editBtn("miles", p.miles + " miles", "Edit miles") + "</b>"];
     if (p.destination) dl.push("📍 " + esc(p.destination));
     if (p.purpose) dl.push("📝 " + esc(p.purpose));
     return dl.join("<br>");
@@ -215,28 +270,36 @@
     el.querySelector(".tconfirm-save").addEventListener("click", savePending);
     el.querySelector(".tconfirm-fix").addEventListener("click", function () {
       pending.awaitingFix = true;
-      botSay("What should change? For example: “make it $50” or “it's marketing”.");
+      botSay("What should change? For example: “make it $50” or “it's marketing”. You can also tap the amount above to edit it directly.");
     });
+    var numBtn = el.querySelector(".tedit-num");
+    if (numBtn) {
+      numBtn.addEventListener("click", function () { editNumber(el, numBtn.getAttribute("data-edit")); });
+    }
   }
 
   function applyFix(text) {
-    var fix = ADTalkParse.parse(text);
+    var fix = ADTalkParse.parse(text); // parse() normalizes number-words
     var p = pending.data;
+    var changed = false;
     if (fix.type === "expense" && p.type === "expense") {
-      if (fix.amount > 0) p.amount = fix.amount;
-      if (fix.vendor) p.vendor = fix.vendor;
-      if (fix.purpose) p.purpose = fix.purpose;
-      if (fix.categoryId && fix.categoryId !== "other") p.categoryId = fix.categoryId;
-      if (fix.giftFor) p.giftFor = fix.giftFor;
+      if (fix.amount > 0 && fix.amount !== p.amount) { p.amount = fix.amount; changed = true; }
+      if (fix.vendor && fix.vendor !== p.vendor) { p.vendor = fix.vendor; changed = true; }
+      if (fix.purpose && fix.purpose !== p.purpose) { p.purpose = fix.purpose; changed = true; }
+      if (fix.categoryId && fix.categoryId !== "other" && fix.categoryId !== p.categoryId) { p.categoryId = fix.categoryId; changed = true; }
+      if (fix.giftFor && fix.giftFor !== p.giftFor) { p.giftFor = fix.giftFor; changed = true; }
     } else if (fix.type === "drive" && p.type === "drive") {
-      if (fix.miles > 0) p.miles = fix.miles;
-      if (fix.destination) { p.destination = fix.destination; p.purpose = fix.purpose; }
+      if (fix.miles > 0 && fix.miles !== p.miles) { p.miles = fix.miles; changed = true; }
+      if (fix.destination && fix.destination !== p.destination) { p.destination = fix.destination; p.purpose = fix.purpose; changed = true; }
     } else {
       // Try category-only correction ("it's marketing", "make it a gift")
       var cat = fixCategoryOnly(text);
-      if (cat && p.type === "expense") p.categoryId = cat;
+      if (cat && p.type === "expense" && cat !== p.categoryId) { p.categoryId = cat; changed = true; }
     }
     pending.awaitingFix = false;
+    if (!changed) {
+      botSay("I didn't catch that change — try “make it $50”, “it's marketing”, or tap the amount above to edit it directly.");
+    }
     showConfirm();
   }
 
