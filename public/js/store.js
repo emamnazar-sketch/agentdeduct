@@ -178,6 +178,11 @@
     return String(item.date || "").slice(0, 4) === String(year);
   }
 
+  function inMonth(item, year, month) {
+    var mm = String(month).padStart(2, "0");
+    return String(item.date || "").slice(0, 7) === String(year) + "-" + mm;
+  }
+
   function yearTotals(db, year) {
     var t = { expenses: 0, deductibleExpenses: 0, miles: 0, mileageDeduction: 0, receipts: 0, count: 0 };
     db.expenses.forEach(function (e) {
@@ -189,6 +194,25 @@
     });
     db.drives.forEach(function (d) {
       if (!inYear(d, year)) return;
+      t.miles += Number(d.miles || 0);
+      t.mileageDeduction += driveDeductible(d);
+    });
+    t.deductions = t.deductibleExpenses + t.mileageDeduction;
+    t.taxSavings = t.deductions * Number(db.settings.taxBracket || 0);
+    return t;
+  }
+
+  function monthTotals(db, year, month) {
+    var t = { expenses: 0, deductibleExpenses: 0, miles: 0, mileageDeduction: 0, receipts: 0, count: 0 };
+    db.expenses.forEach(function (e) {
+      if (!inMonth(e, year, month)) return;
+      t.expenses += Number(e.amount || 0);
+      t.deductibleExpenses += expenseDeductible(e);
+      t.count++;
+      if (e.receipt && e.receipt.data) t.receipts++;
+    });
+    db.drives.forEach(function (d) {
+      if (!inMonth(d, year, month)) return;
       t.miles += Number(d.miles || 0);
       t.mileageDeduction += driveDeductible(d);
     });
@@ -295,6 +319,7 @@
     expenseDeductible: expenseDeductible,
     driveDeductible: driveDeductible,
     yearTotals: yearTotals,
+    monthTotals: monthTotals,
     dealTotals: dealTotals,
     scheduleCGroups: scheduleCGroups,
     nextQuarterlyDue: nextQuarterlyDue,

@@ -61,14 +61,47 @@
     return items.slice(0, n || 6);
   }
 
+  var MONTH_NAMES = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+  function monthLabel(ym) {
+    var p = String(ym || "").split("-");
+    var mi = Number(p[1] || 1) - 1;
+    return MONTH_NAMES[Math.min(11, Math.max(0, mi))] + " " + (p[0] || "");
+  }
+
+  function shiftMonth(ym, dir) {
+    var p = String(ym || "").split("-");
+    var d = new Date(Number(p[0]), Number(p[1]) - 1 + dir, 1);
+    return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0");
+  }
+
   function render() {
     var el = document.getElementById("view-home");
-    var t = AD.store.yearTotals(AD.db, AD.year);
+    var period = AD.db.settings.homePeriod || "year";
+    var vm = AD.db.settings.homeMonth || AD.store.todayStr().slice(0, 7);
+    var t, periodLabel;
+    if (period === "month") {
+      var mp = vm.split("-");
+      t = AD.store.monthTotals(AD.db, mp[0], mp[1]);
+      periodLabel = monthLabel(vm);
+    } else {
+      t = AD.store.yearTotals(AD.db, AD.year);
+      periodLabel = AD.year;
+    }
     var bracket = Number(AD.db.settings.taxBracket || 0.22);
     var pct = Math.round(bracket * 100);
 
     var html = "";
-    html += '<div class="hero no-print"><div class="eyebrow">Estimated ' + AD.year + ' tax savings</div>' +
+    html += '<div class="period-toggle no-print" role="tablist" aria-label="View period">' +
+      '<button type="button" id="ptYear" class="' + (period === "year" ? "active" : "") + '">📅 Year</button>' +
+      '<button type="button" id="ptMonth" class="' + (period === "month" ? "active" : "") + '">🗓️ Month</button></div>';
+    if (period === "month") {
+      html += '<div class="month-nav no-print">' +
+        '<button type="button" id="monthPrev" aria-label="Previous month">◀</button>' +
+        '<span id="monthLabel">' + AD.esc(periodLabel) + "</span>" +
+        '<button type="button" id="monthNext" aria-label="Next month">▶</button></div>';
+    }
+    html += '<div class="hero no-print"><div class="eyebrow">Estimated ' + AD.esc(periodLabel) + ' tax savings</div>' +
       '<div class="big savings-tick" id="heroSavings">' + AD.money0(t.taxSavings) + "</div>" +
       '<div class="sub">from ' + AD.money0(t.deductions) + ' in deductions</div>' +
       '<div class="bracket">at a ' + pct + '% tax bracket · <button type="button" id="heroBracket">change</button></div></div>';
@@ -109,6 +142,27 @@
     html += '<p class="privacy-note center">🔒 <b>Private by design.</b> Everything stays on this device — no account, no cloud, no selling your data. <a href="privacy.html" style="color:var(--green);font-weight:700;">How it works</a></p>';
 
     el.innerHTML = html;
+
+    var py = document.getElementById("ptYear");
+    if (py) py.addEventListener("click", function () {
+      AD.db.settings.homePeriod = "year"; AD.persist(); render();
+    });
+    var pm = document.getElementById("ptMonth");
+    if (pm) pm.addEventListener("click", function () {
+      AD.db.settings.homePeriod = "month";
+      if (!AD.db.settings.homeMonth) AD.db.settings.homeMonth = AD.store.todayStr().slice(0, 7);
+      AD.persist(); render();
+    });
+    var mp = document.getElementById("monthPrev");
+    if (mp) mp.addEventListener("click", function () {
+      AD.db.settings.homeMonth = shiftMonth(AD.db.settings.homeMonth || AD.store.todayStr().slice(0, 7), -1);
+      AD.persist(); render();
+    });
+    var mn = document.getElementById("monthNext");
+    if (mn) mn.addEventListener("click", function () {
+      AD.db.settings.homeMonth = shiftMonth(AD.db.settings.homeMonth || AD.store.todayStr().slice(0, 7), 1);
+      AD.persist(); render();
+    });
 
     var hb = document.getElementById("heroBracket");
     if (hb) hb.addEventListener("click", function () { AD.showTab("settings"); });
