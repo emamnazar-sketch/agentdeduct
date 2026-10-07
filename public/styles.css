@@ -328,3 +328,31 @@ body.is-gated { overflow: hidden; }
 .legal-panel .primary { width: 100%; margin-top: 4px; }
 .site-footer nav { display: flex; gap: 18px; justify-content: center; margin-top: 10px; flex-wrap: wrap; }
 .hidden { display: none !important; }
+
+/* ---- Talk (conversational logging) ---- */
+.talk-fab {
+  position: fixed; right: 18px; bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom) + 14px); z-index: 60;
+  width: 58px; height: 58px; border-radius: 50%; background: var(--green); color: #fff; font-size: 26px;
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
+  box-shadow: 0 10px 26px rgba(18, 60, 30, 0.35); border: 0;
+}
+.talk-fab:active { transform: scale(0.94); }
+.talk-sheet { max-height: 88vh; display: flex; flex-direction: column; }
+.talk-msgs { overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding: 6px 2px 12px; min-height: 220px; max-height: 52vh; }
+.tmsg { max-width: 88%; padding: 10px 14px; border-radius: 18px; font-size: 15px; line-height: 1.5; }
+.tmsg.user { align-self: flex-end; background: var(--green); color: #fff; border-bottom-right-radius: 6px; }
+.tmsg.bot { align-self: flex-start; background: var(--surface-2); border: 1px solid var(--line); border-bottom-left-radius: 6px; }
+.tmsg.ttyping { color: var(--muted); letter-spacing: 2px; }
+.talk-input-row { display: flex; gap: 8px; align-items: center; padding-top: 6px; }
+.talk-input-row input[type="text"] {
+  flex: 1; padding: 12px 14px; font-size: 15px; border: 1px solid var(--line);
+  border-radius: 999px; background: var(--surface-2); color: var(--ink); min-width: 0;
+}
+.talk-icon-btn { width: 44px; height: 44px; border-radius: 50%; background: var(--surface-2); border: 1px solid var(--line); font-size: 19px; cursor: pointer; flex-shrink: 0; }
+.talk-send { width: 44px; height: 44px; border-radius: 50%; background: var(--green); color: #fff; font-size: 18px; cursor: pointer; border: 0; flex-shrink: 0; }
+.tconfirm { display: flex; flex-direction: column; gap: 8px; }
+.tconfirm-title { font-weight: 800; font-size: 14px; }
+.tconfirm-body { font-size: 15px; line-height: 1.7; }
+.tconfirm-actions { display: flex; gap: 8px; margin-top: 2px; }
+.tconfirm-actions .btn-primary { flex: 1; padding: 10px; font-size: 15px; border-radius: 14px; }
+.tconfirm-actions .btn-ghost { flex: 1; padding: 10px; font-size: 15px; border-radius: 14px; }

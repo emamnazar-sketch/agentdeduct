@@ -1,27 +1,29 @@
 /* AgentDeduct v2 — offline-first service worker (versioned cache). */
-var CACHE = "agentdeduct-v2-5";
+var CACHE = "agentdeduct-v2-6";
 var CORE = [
-  "/?v=5",
-  "/index.html?v=5",
-  "/styles.css?v=5",
-  "/manifest.json?v=5",
-  "/js/store.js?v=5",
-  "/js/track.js?v=5",
-  "/js/ocr.js?v=5",
-  "/js/gps.js?v=5",
-  "/js/auth.js?v=5",
-  "/js/install.js?v=5",
-  "/js/app.js?v=5",
-  "/js/views-home.js?v=5",
-  "/js/views-add.js?v=5",
-  "/js/views-drives.js?v=5",
-  "/js/views-deals.js?v=5",
-  "/js/views-reports.js?v=5",
-  "/js/views-settings.js?v=5",
-  "/assets/icon-192.png?v=5",
-  "/assets/icon-512.png?v=5",
+  "/?v=6",
+  "/index.html?v=6",
+  "/styles.css?v=6",
+  "/manifest.json?v=6",
+  "/js/store.js?v=6",
+  "/js/track.js?v=6",
+  "/js/ocr.js?v=6",
+  "/js/gps.js?v=6",
+  "/js/auth.js?v=6",
+  "/js/talk-parse.js?v=6",
+  "/js/talk.js?v=6",
+  "/js/install.js?v=6",
+  "/js/app.js?v=6",
+  "/js/views-home.js?v=6",
+  "/js/views-add.js?v=6",
+  "/js/views-drives.js?v=6",
+  "/js/views-deals.js?v=6",
+  "/js/views-reports.js?v=6",
+  "/js/views-settings.js?v=6",
+  "/assets/icon-192.png?v=6",
+  "/assets/icon-512.png?v=6",
   "/assets/icon-maskable-512.png",
-  "/assets/agentdeduct-logo.png?v=5",
+  "/assets/agentdeduct-logo.png?v=6",
 ];
 
 self.addEventListener("install", function (e) {
@@ -50,7 +52,7 @@ self.addEventListener("fetch", function (e) {
         var copy = res.clone();
         caches.open(CACHE).then(function (c) { c.put(e.request, copy); });
         return res;
-      }).catch(function () { return caches.match("/index.html?v=5"); })
+      }).catch(function () { return caches.match("/index.html?v=6"); })
     );
     return;
   }
