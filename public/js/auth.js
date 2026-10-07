@@ -27,13 +27,17 @@
     });
   }
 
-  /* ---------- sign-in gate ---------- */
+  /* ---------- public landing + sign-in gate ----------
+     Logged-out visitors see a real landing page describing the app
+     (Google requires app info to be visible without login), with the
+     Google sign-in button front and center. */
   function renderGate() {
     document.body.classList.add("is-gated");
     var veil = document.createElement("div");
-    veil.className = "gate-veil";
+    veil.className = "gate-veil gate-landing";
     veil.innerHTML =
-      '<div class="gate-card">' +
+      '<div class="gate-card gate-wide">' +
+      '<div class="gate-top">' +
         '<img class="gate-logo" src="assets/agentdeduct-logo.png?v=5" alt="AgentDeduct">' +
         "<h1>AgentDeduct</h1>" +
         '<p class="gate-sub">The mileage-first tax deduction app for real estate agents.</p>' +
@@ -47,6 +51,21 @@
           "<span>Continue with Google</span>" +
         "</a>" +
         '<p class="gate-note">We only see your name and email.<br>Your tax data stays yours.</p>' +
+      "</div>" +
+      '<div class="gate-info">' +
+        "<h2>What AgentDeduct does</h2>" +
+        "<p>AgentDeduct helps real estate agents capture every deductible mile and dollar. Log drives and expenses in seconds, snap receipt photos, and get tax-ready totals — built for busy agents.</p>" +
+        '<ul class="gate-feats">' +
+          "<li><span>🚗</span><span><b>Mileage tracking</b> — log business drives with IRS-ready records.</span></li>" +
+          "<li><span>💬</span><span><b>Talk to AgentDeduct</b> — say what you spent and it files the expense.</span></li>" +
+          "<li><span>🧾</span><span><b>Receipt scanner</b> — snap a photo and the totals are read automatically.</span></li>" +
+          "<li><span>💾</span><span><b>Google Drive backup</b> — your data backs up automatically to a file in your own Drive.</span></li>" +
+          "<li><span>📊</span><span><b>Tax reports</b> — clean deduction totals when filing time comes.</span></li>" +
+        "</ul>" +
+        "<h2>Your data</h2>" +
+        "<p>Sign-in uses your Google account — we see only your name and email. Backups live in <b>your</b> Google Drive: AgentDeduct can only access the backup files it creates, never your other files. Export or delete your data anytime from Settings.</p>" +
+        '<p class="gate-links"><a href="/privacy.html">Privacy Policy</a> &nbsp;·&nbsp; <a href="/terms.html">Terms of Service</a></p>' +
+      "</div>" +
       "</div>";
     document.body.appendChild(veil);
   }
