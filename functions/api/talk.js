@@ -43,7 +43,7 @@ export async function onRequest(context) {
     const text = String((out && out.response) || "").trim();
     // Temporary debug: ?debug=1 returns raw model output.
     if (new URL(request.url).searchParams.get("debug") === "1") {
-      return json({ ok: true, raw: text.slice(0, 500) });
+      return json({ ok: true, raw: JSON.stringify(out).slice(0, 800) });
     }
     const parsed = extractJson(text);
     if (!parsed || !parsed.type) return json({ ok: false, fallback: true }, 200);
