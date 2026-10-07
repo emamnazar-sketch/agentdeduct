@@ -62,7 +62,7 @@ img { max-width: 100%; }
 @media (min-width: 720px) { .app { max-width: 640px; } }
 
 /* ---------- header ---------- */
-.topbar { display: flex; align-items: center; justify-content: space-between; padding: 18px 0 6px; }
+.topbar { display: flex; align-items: center; justify-content: space-between; padding: calc(18px + env(safe-area-inset-top)) 0 6px; }
 .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 19px; letter-spacing: -0.01em; }
 .brand img { width: 34px; height: 34px; border-radius: 10px; object-fit: cover; }
 .year-pill {
@@ -265,7 +265,8 @@ img { max-width: 100%; }
 .gate-veil {
   position: fixed; inset: 0; z-index: 200;
   background: var(--bg-grad, #f4f6f3);
-  display: flex; align-items: center; justify-content: center; padding: 24px;
+  display: flex; align-items: center; justify-content: center;
+  padding: calc(24px + env(safe-area-inset-top)) 24px calc(24px + env(safe-area-inset-bottom));
 }
 .gate-card {
   width: 100%; max-width: 380px; text-align: center;

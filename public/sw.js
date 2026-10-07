@@ -1,25 +1,27 @@
 /* AgentDeduct v2 — offline-first service worker (versioned cache). */
-var CACHE = "agentdeduct-v2-3";
+var CACHE = "agentdeduct-v2-4";
 var CORE = [
-  "/?v=3",
-  "/index.html?v=3",
-  "/styles.css?v=3",
-  "/manifest.json?v=3",
-  "/js/store.js?v=3",
-  "/js/track.js?v=3",
-  "/js/ocr.js?v=3",
-  "/js/gps.js?v=3",
-  "/js/auth.js?v=3",
-  "/js/app.js?v=3",
-  "/js/views-home.js?v=3",
-  "/js/views-add.js?v=3",
-  "/js/views-drives.js?v=3",
-  "/js/views-deals.js?v=3",
-  "/js/views-reports.js?v=3",
-  "/js/views-settings.js?v=3",
-  "/assets/icon-192.png?v=3",
-  "/assets/icon-512.png?v=3",
-  "/assets/agentdeduct-logo.png?v=3",
+  "/?v=4",
+  "/index.html?v=4",
+  "/styles.css?v=4",
+  "/manifest.json?v=4",
+  "/js/store.js?v=4",
+  "/js/track.js?v=4",
+  "/js/ocr.js?v=4",
+  "/js/gps.js?v=4",
+  "/js/auth.js?v=4",
+  "/js/install.js?v=4",
+  "/js/app.js?v=4",
+  "/js/views-home.js?v=4",
+  "/js/views-add.js?v=4",
+  "/js/views-drives.js?v=4",
+  "/js/views-deals.js?v=4",
+  "/js/views-reports.js?v=4",
+  "/js/views-settings.js?v=4",
+  "/assets/icon-192.png?v=4",
+  "/assets/icon-512.png?v=4",
+  "/assets/icon-maskable-512.png",
+  "/assets/agentdeduct-logo.png?v=4",
 ];
 
 self.addEventListener("install", function (e) {
@@ -48,7 +50,7 @@ self.addEventListener("fetch", function (e) {
         var copy = res.clone();
         caches.open(CACHE).then(function (c) { c.put(e.request, copy); });
         return res;
-      }).catch(function () { return caches.match("/index.html?v=3"); })
+      }).catch(function () { return caches.match("/index.html?v=4"); })
     );
     return;
   }

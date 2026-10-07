@@ -6,6 +6,9 @@
     <title>AgentDeduct — Keep more of every commission</title>
     <meta name="description" content="The mileage-first tax deduction app for real estate agents. Track drives, expenses, and deals — private by design, with optional Google Drive backup." />
     <meta name="theme-color" content="#0d4d2f" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://agentdeduct.com/" />
     <meta property="og:title" content="AgentDeduct" />
@@ -15,10 +18,10 @@
     <meta name="twitter:title" content="AgentDeduct" />
     <meta name="twitter:description" content="Keep more of every commission. Mileage, expenses, and deals — private by design." />
     <meta name="twitter:image" content="https://agentdeduct.com/assets/social-card.png" />
-    <link rel="manifest" href="manifest.json?v=3" />
-    <link rel="icon" href="assets/agentdeduct-logo.png?v=3" />
-    <link rel="apple-touch-icon" href="assets/agentdeduct-logo.png?v=3" />
-    <link rel="stylesheet" href="styles.css?v=3" />
+    <link rel="manifest" href="manifest.json?v=4" />
+    <link rel="icon" href="assets/agentdeduct-logo.png?v=4" />
+    <link rel="apple-touch-icon" href="assets/agentdeduct-logo.png?v=4" />
+    <link rel="stylesheet" href="styles.css?v=4" />
     <script>
       try {
         var s = JSON.parse(localStorage.getItem("agentDeduct.db.v2") || "{}").settings || {};
@@ -32,7 +35,7 @@
     <div class="app">
       <header class="topbar">
         <div class="brand">
-          <img src="assets/agentdeduct-logo.png?v=3" alt="AgentDeduct logo" />
+          <img src="assets/agentdeduct-logo.png?v=4" alt="AgentDeduct logo" />
           <span>AgentDeduct</span>
         </div>
         <div class="year-pill no-print">📅 <select id="yearSelect" aria-label="Tax year"></select></div>
@@ -127,22 +130,23 @@
     <div class="toast" id="toast" role="status"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
-    <script src="js/store.js?v=3"></script>
-    <script src="js/track.js?v=3"></script>
-    <script src="js/ocr.js?v=3"></script>
-    <script src="js/gps.js?v=3"></script>
-    <script src="js/auth.js?v=3"></script>
-    <script src="js/app.js?v=3"></script>
-    <script src="js/views-home.js?v=3"></script>
-    <script src="js/views-add.js?v=3"></script>
-    <script src="js/views-drives.js?v=3"></script>
-    <script src="js/views-deals.js?v=3"></script>
-    <script src="js/views-reports.js?v=3"></script>
-    <script src="js/views-settings.js?v=3"></script>
+    <script src="js/store.js?v=4"></script>
+    <script src="js/track.js?v=4"></script>
+    <script src="js/ocr.js?v=4"></script>
+    <script src="js/gps.js?v=4"></script>
+    <script src="js/auth.js?v=4"></script>
+    <script src="js/install.js?v=4"></script>
+    <script src="js/app.js?v=4"></script>
+    <script src="js/views-home.js?v=4"></script>
+    <script src="js/views-add.js?v=4"></script>
+    <script src="js/views-drives.js?v=4"></script>
+    <script src="js/views-deals.js?v=4"></script>
+    <script src="js/views-reports.js?v=4"></script>
+    <script src="js/views-settings.js?v=4"></script>
     <script>
       if ("serviceWorker" in navigator && location.protocol.indexOf("http") === 0) {
         window.addEventListener("load", function () {
-          navigator.serviceWorker.register("sw.js?v=3").catch(function () {});
+          navigator.serviceWorker.register("sw.js?v=4").catch(function () {});
         });
       }
     </script>

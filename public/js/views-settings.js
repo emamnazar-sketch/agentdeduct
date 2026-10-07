@@ -41,6 +41,13 @@
     return html + "</div>";
   }
 
+  function installCard() {
+    var html = '<div class="card"><h3>📲 Add to Home Screen</h3>' +
+      '<p class="hint">Put AgentDeduct on your home screen — it opens like a real app, and you stay signed in. No more searching for it.</p>' +
+      '<div id="installBody"><p class="hint">Checking your device…</p></div></div>';
+    return html;
+  }
+
   function esc(s) {
     return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
       return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
@@ -54,6 +61,8 @@
     var html = '<h1 class="page-title">Settings</h1><p class="page-sub">Tune the app to your tax situation.</p>';
 
     html += accountCard();
+
+    html += installCard();
 
     html += '<div class="card"><h3>💰 Your tax bracket</h3>' +
       '<p class="hint">Your federal marginal bracket — it turns deductions into "money back in your pocket." Pick the closest; single-filer ranges shown.</p>' +
@@ -142,6 +151,43 @@
     if (outBtn) outBtn.addEventListener("click", function () {
       if (confirm("Sign out of AgentDeduct on this device? Your data stays on this phone.")) AD.auth.signOut();
     });
+    wireInstall();
+  }
+
+  function wireInstall() {
+    var body = document.getElementById("installBody");
+    if (!body || !window.ADInstall) {
+      if (body) body.innerHTML = '<p class="hint">Open this page in Chrome or Safari to add the app to your home screen.</p>';
+      return;
+    }
+    function paint() {
+      if (ADInstall.isStandalone()) {
+        body.innerHTML = '<div class="set-row"><div><div class="t">✓ You\'re using the installed app</div>' +
+          '<div class="s">Launched from your home screen — nice.</div></div></div>';
+        return;
+      }
+      if (ADInstall.canPrompt()) {
+        body.innerHTML = '<button class="btn-primary" id="pwaInstallBtn" type="button" style="width:100%;">⬇️ Install AgentDeduct</button>' +
+          '<p class="hint">One tap — adds the icon to your home screen.</p>';
+        document.getElementById("pwaInstallBtn").addEventListener("click", function () {
+          ADInstall.prompt().then(function () { setTimeout(paint, 1500); });
+        });
+        return;
+      }
+      if (ADInstall.isIOS()) {
+        body.innerHTML = '<div class="s" style="line-height:1.9;">' +
+          '1️⃣ Tap the <b>Share</b> button ⬆️ at the bottom of Safari<br>' +
+          '2️⃣ Scroll down and tap <b>Add to Home Screen</b><br>' +
+          '3️⃣ Tap <b>Add</b> — done, the icon appears on your home screen</div>';
+        return;
+      }
+      body.innerHTML = '<div class="s" style="line-height:1.9;">' +
+        '1️⃣ Tap the <b>⋮ menu</b> (top-right of Chrome)<br>' +
+        '2️⃣ Tap <b>Add to Home screen</b> or <b>Install app</b><br>' +
+        '3️⃣ Tap <b>Add</b> — done, the icon appears on your home screen</div>';
+    }
+    ADInstall.onChange(paint);
+    paint();
   }
 
   AD.views.settings = render;
