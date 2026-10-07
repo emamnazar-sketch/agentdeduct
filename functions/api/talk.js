@@ -41,6 +41,10 @@ export async function onRequest(context) {
       max_tokens: 160,
     });
     const text = String((out && out.response) || "").trim();
+    // Temporary debug: ?debug=1 returns raw model output.
+    if (new URL(request.url).searchParams.get("debug") === "1") {
+      return json({ ok: true, raw: text.slice(0, 500) });
+    }
     const parsed = extractJson(text);
     if (!parsed || !parsed.type) return json({ ok: false, fallback: true }, 200);
     return json({ ok: true, parsed: sanitize(parsed) });
