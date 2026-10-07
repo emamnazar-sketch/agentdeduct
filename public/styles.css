@@ -300,3 +300,29 @@ body.is-gated { overflow: hidden; }
 .modal-card h2 { font-size: 22px; letter-spacing: -0.01em; margin: 0 0 8px; }
 .modal-sub { color: var(--muted); font-size: 15px; line-height: 1.55; margin: 0 0 14px; }
 .modal-sub b { color: var(--ink); }
+
+/* ---- Standalone pages (privacy, terms, feedback) ---- */
+.legal-topbar { max-width: 720px; margin: 0 auto; }
+.legal-shell { max-width: 720px; margin: 0 auto; padding: 0 20px calc(40px + env(safe-area-inset-bottom)); }
+.legal-panel { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 28px 26px; box-shadow: var(--shadow); }
+.legal-panel h2 { font-size: 20px; margin: 26px 0 8px; letter-spacing: -0.01em; }
+.legal-panel h2:first-child { margin-top: 0; }
+.legal-panel p, .legal-panel li { font-size: 15px; line-height: 1.65; }
+.legal-panel p { margin: 0 0 12px; }
+.legal-panel ul { margin: 0 0 12px; padding-left: 20px; }
+.legal-panel label { display: block; font-weight: 700; font-size: 14px; margin: 0 0 14px; }
+.legal-panel input[type="text"], .legal-panel input[type="email"], .legal-panel select, .legal-panel textarea {
+  display: block; width: 100%; margin-top: 6px; padding: 12px 14px; font-size: 15px;
+  border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--surface-2); color: var(--ink);
+}
+.legal-panel textarea { resize: vertical; min-height: 120px; }
+.eyebrow { text-transform: uppercase; letter-spacing: 0.12em; font-size: 12px; font-weight: 800; color: var(--green); margin: 0 0 8px; }
+.brand-title { display: flex; align-items: center; gap: 12px; }
+.brand-title img { width: 44px; height: 44px; border-radius: 12px; object-fit: cover; }
+.brand-title h1 { font-size: 28px; margin: 0; letter-spacing: -0.02em; }
+.tagline { color: var(--muted); font-size: 14px; margin: 8px 0 0; }
+.site-footer { max-width: 720px; margin: 0 auto; padding: 24px 20px calc(24px + env(safe-area-inset-bottom)); text-align: center; color: var(--muted); font-size: 13px; }
+.site-footer a { color: var(--green); font-weight: 700; }
+.primary { display: inline-block; background: var(--green); color: #fff; border-radius: 999px; padding: 13px 26px; font-size: 16px; font-weight: 700; text-decoration: none; border: 0; cursor: pointer; }
+.primary:disabled { opacity: 0.6; cursor: default; }
+.hidden { display: none !important; }
