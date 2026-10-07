@@ -40,13 +40,20 @@ export async function onRequest(context) {
       ],
       max_tokens: 160,
     });
-    const text = String((out && out.response) || "").trim();
-    // Temporary debug: ?debug=1 returns raw model output.
-    if (new URL(request.url).searchParams.get("debug") === "1") {
-      return json({ ok: true, raw: JSON.stringify(out).slice(0, 800) });
+    // Workers AI returns `response` as a parsed object when the model emits
+    // clean JSON, or as a string otherwise. Handle both.
+    let parsed = null;
+    if (out && out.response != null) {
+      if (typeof out.response === "object") {
+        parsed = out.response;
+      } else {
+        parsed = extractJson(String(out.response));
+      }
     }
-    const parsed = extractJson(text);
-    if (!parsed || !parsed.type) return json({ ok: false, fallback: true }, 200);
+    if (!parsed && out && out.choices && out.choices[0] && out.choices[0].message) {
+      parsed = extractJson(String(out.choices[0].message.content || ""));
+    }
+    if (!parsed || typeof parsed.type !== "string") return json({ ok: false, fallback: true }, 200);
     return json({ ok: true, parsed: sanitize(parsed) });
   } catch (e) {
     return json({ ok: false, fallback: true }, 200);
