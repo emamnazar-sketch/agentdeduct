@@ -1,5 +1,5 @@
 const SPREADSHEET_ID = "1R7pOjIfMaoQ_wOICFGNRHjdXP10zrJsD2Gt_cBKoTSM";
-const WEBHOOK_SECRET = "ea1343a985f2833b5a0c06832c1ff78d";
+const WEBHOOK_SECRET = "54bfb41249c03292d7a078060397504ebd7060fafd2140c8"; // rotated 2026-10-07: update Apps Script project + Cloudflare env GOOGLE_SHEETS_WEBHOOK_SECRET to match
 
 function doPost(event) {
   try {
