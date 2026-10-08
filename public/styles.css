@@ -274,7 +274,7 @@ img { max-width: 100%; }
   background: var(--surface); border: 1px solid var(--line); border-radius: 24px;
   padding: 40px 28px 32px; box-shadow: var(--shadow);
 }
-.gate-logo { height: 54px; width: auto; border-radius: 12px; margin-bottom: 12px; background: #fff; padding: 6px 16px; }
+.gate-logo { height: 162px; width: auto; border-radius: 12px; margin-bottom: 12px; background: #fff; padding: 6px 16px; }
 .gate-card h1 { font-size: 30px; letter-spacing: -0.02em; margin: 0 0 6px; }
 .gate-sub { color: var(--muted); font-size: 15px; margin: 0 0 26px; line-height: 1.45; }
 .gbtn {
