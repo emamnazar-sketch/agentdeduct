@@ -38,8 +38,7 @@
     veil.innerHTML =
       '<div class="gate-card gate-wide">' +
       '<div class="gate-top">' +
-        '<img class="gate-logo" src="assets/agentdeduct-logo.png?v=5" alt="AgentDeduct">' +
-        "<h1>AgentDeduct</h1>" +
+        '<img class="gate-logo" src="assets/agentdeduct-logo-horizontal.png?v=8" alt="AgentDeduct">' +
         '<p class="gate-sub">The mileage-first tax deduction app for real estate agents.</p>' +
         '<a class="gbtn" href="/api/auth/login">' +
           '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">' +

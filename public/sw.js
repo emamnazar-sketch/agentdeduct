@@ -1,10 +1,10 @@
 /* AgentDeduct v2 — offline-first service worker (versioned cache). */
-var CACHE = "agentdeduct-v2-7";
+var CACHE = "agentdeduct-v2-8";
 var CORE = [
   "/?v=7",
   "/index.html?v=7",
   "/styles.css?v=7",
-  "/manifest.json?v=7",
+  "/manifest.json?v=8",
   "/js/store.js?v=7",
   "/js/track.js?v=7",
   "/js/ocr.js?v=7",
@@ -20,10 +20,14 @@ var CORE = [
   "/js/views-deals.js?v=7",
   "/js/views-reports.js?v=7",
   "/js/views-settings.js?v=7",
-  "/assets/icon-192.png?v=7",
-  "/assets/icon-512.png?v=7",
-  "/assets/icon-maskable-512.png",
-  "/assets/agentdeduct-logo.png?v=7",
+  "/assets/icon-192.png?v=8",
+  "/assets/icon-512.png?v=8",
+  "/assets/icon-maskable-512.png?v=8",
+  "/assets/agentdeduct-logo-horizontal.png?v=8",
+  "/assets/agentdeduct-icon-navy.png?v=8",
+  "/assets/agentdeduct-icon-transparent.png?v=8",
+  "/assets/favicon-32x32.png?v=8",
+  "/assets/apple-touch-icon.png?v=8",
 ];
 
 self.addEventListener("install", function (e) {
