@@ -175,6 +175,7 @@
   var dots = Array.prototype.slice.call(root.querySelectorAll(".carousel-dot"));
   var caption = root.querySelector(".carousel-caption");
   if (!track || !slides.length) return;
+  root.classList.add("is-live");
 
   var reduceMotion = window.matchMedia &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;

@@ -514,8 +514,13 @@ fieldset.field {
   box-shadow: 0 14px 34px rgba(13, 77, 47, 0.28);
 }
 .carousel-viewport { overflow: hidden; border-radius: 30px; }
-.carousel-track { display: flex; transition: transform 0.5s ease; }
-.carousel-slide { min-width: 100%; }
+/* Pre-JS: show first slide only (no stacked flash before init) */
+.carousel-track { display: block; }
+.carousel-slide { display: none; }
+.carousel-slide:first-child { display: block; }
+/* Once JS takes over: flex track for sliding */
+.carousel.is-live .carousel-track { display: flex; transition: transform 0.5s ease; }
+.carousel.is-live .carousel-slide { display: block; min-width: 100%; }
 .carousel-slide img { display: block; width: 100%; height: auto; }
 .carousel-arrow {
   position: absolute;
