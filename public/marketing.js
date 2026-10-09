@@ -119,14 +119,13 @@
     var brokerage = fields.brokerage.value.trim() || "—";
     var hardest = fields.hardest.value.trim() || "—";
 
-    fetch("/api/feedback", {
+    fetch("/api/beta", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
-        type: "beta-signup",
-        feedbackType: "beta-signup",
         name: fields.name.value.trim(),
         email: fields.email.value.trim(),
+        consent: fields.consent.checked === true,
         message:
           "Brokerage: " + brokerage +
           " | Platform: " + platformValue() +
