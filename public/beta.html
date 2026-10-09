@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Join the Agent Beta — AgentDeduct</title>
+  <meta name="description" content="AgentDeduct is in early beta. Join the list and we'll email you when your invitation is ready.">
+  <link rel="canonical" href="https://staging-marketing.agentdeduct.pages.dev/beta">
+  <meta name="robots" content="noindex, nofollow">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Join the Agent Beta — AgentDeduct">
+  <meta property="og:description" content="AgentDeduct is in early beta. Join the list and we'll email you when your invitation is ready.">
+  <meta property="og:url" content="https://staging-marketing.agentdeduct.pages.dev/beta">
+  <meta property="og:image" content="https://staging-marketing.agentdeduct.pages.dev/assets/social-card.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Join the Agent Beta — AgentDeduct">
+  <meta name="twitter:description" content="AgentDeduct is in early beta. Join the list and we'll email you when your invitation is ready.">
+  <meta name="twitter:image" content="https://staging-marketing.agentdeduct.pages.dev/assets/social-card.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="nav-bar">
+      <a class="brand" href="/" aria-label="AgentDeduct home">
+        <img src="/assets/logo-mark.png" alt="AgentDeduct logo" width="38" height="38">
+        <span>AgentDeduct</span>
+      </a>
+      <nav aria-label="Primary">
+        <button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+        <ul class="nav-links" id="primary-nav">
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/blog">Journal</a></li>
+          <li><a href="/support">Support</a></li>
+          <li><a class="nav-cta" href="/beta">Join the Agent Beta</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="tight">
+      <div class="container">
+        <div class="form-wrap">
+          <span class="eyebrow">Early access</span>
+          <h1>Join the Agent Beta</h1>
+          <p class="lede">AgentDeduct is in early beta — this is an invitation list, not an instant download. Tell us where to reach you, and we'll email you when your invitation is ready.</p>
+          <p>We ask for the minimum: your name, your email, and which phone you use. No financial records, no receipts, no addresses, no location access — not now, not to join the list.</p>
+
+          <form id="beta-form" novalidate>
+            <div class="field">
+              <label for="f-name">Name</label>
+              <input type="text" id="f-name" name="name" autocomplete="name" required>
+              <p class="error-text" id="err-name"></p>
+            </div>
+
+            <div class="field">
+              <label for="f-email">Email</label>
+              <input type="email" id="f-email" name="email" autocomplete="email" required>
+              <p class="error-text" id="err-email"></p>
+            </div>
+
+            <div class="field">
+              <label for="f-brokerage">Brokerage <span class="optional">(optional)</span></label>
+              <input type="text" id="f-brokerage" name="brokerage" autocomplete="organization">
+            </div>
+
+            <fieldset class="field">
+              <legend>Which phone do you use?</legend>
+              <div class="radio-row">
+                <label><input type="radio" name="platform" value="iPhone" required> iPhone</label>
+                <label><input type="radio" name="platform" value="Android" required> Android</label>
+              </div>
+              <p class="error-text" id="err-platform"></p>
+            </fieldset>
+
+            <div class="field">
+              <label for="f-hardest">What is hardest to keep track of in your business? <span class="optional">(optional)</span></label>
+              <textarea id="f-hardest" name="hardest" rows="4" maxlength="2000"></textarea>
+            </div>
+
+            <div class="field">
+              <div class="check-row">
+                <input type="checkbox" id="f-consent" name="consent" required>
+                <label for="f-consent">I agree to receive beta-related emails from AgentDeduct. See our <a href="/privacy">privacy policy</a>.</label>
+              </div>
+              <p class="error-text" id="err-consent"></p>
+            </div>
+
+            <button class="btn btn-primary" type="submit">Join the Agent Beta</button>
+            <div class="form-status" id="form-status"></div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="/assets/logo-mark.png" alt="" width="32" height="32">
+          <span>AgentDeduct</span>
+        </div>
+        <ul class="footer-links">
+          <li><a href="/about">About</a></li>
+          <li><a href="/blog">Journal</a></li>
+          <li><a href="/beta">Beta</a></li>
+          <li><a href="/support">Support</a></li>
+          <li><a href="/privacy">Privacy</a></li>
+          <li><a href="/terms">Terms</a></li>
+        </ul>
+      </div>
+      <p class="footer-note">AgentDeduct is in early beta. It does not replace your CPA.<br>&copy; <span data-year>2026</span> AgentDeduct.</p>
+    </div>
+  </footer>
+
+  <script src="/marketing.js" defer></script>
+</body>
+</html>

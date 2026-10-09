@@ -1,157 +1,191 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <title>AgentDeduct — Keep more of every commission</title>
-    <meta name="description" content="The mileage-first tax deduction app for real estate agents. Track drives, expenses, and deals — private by design, with optional Google Drive backup." />
-    <meta name="theme-color" content="#0d4d2f" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://agentdeduct.com/" />
-    <meta property="og:title" content="AgentDeduct" />
-    <meta property="og:description" content="The mileage-first tax deduction app for real estate agents. Private by design — your data stays yours." />
-    <meta property="og:image" content="https://agentdeduct.com/assets/social-card.png?v=9" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="AgentDeduct" />
-    <meta name="twitter:description" content="Keep more of every commission. Mileage, expenses, and deals — private by design." />
-    <meta name="twitter:image" content="https://agentdeduct.com/assets/social-card.png?v=9" />
-    <link rel="manifest" href="manifest.json?v=9" />
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png?v=9" />
-    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=9" />
-    <link rel="stylesheet" href="styles.css?v=10" />
-    <script>
-      try {
-        var s = JSON.parse(localStorage.getItem("agentDeduct.db.v2") || "{}").settings || {};
-        var mode = s.darkMode || "auto";
-        var dark = mode === "dark" || (mode === "auto" && matchMedia("(prefers-color-scheme: dark)").matches);
-        if (dark) document.documentElement.setAttribute("data-theme", "dark");
-      } catch (e) {}
-    </script>
-  </head>
-  <body>
-    <div class="app">
-      <header class="topbar">
-        <div class="brand">
-          <img class="brand-logo" src="assets/agentdeduct-logo-horizontal.png?v=9" alt="AgentDeduct logo" />
-        </div>
-        <div class="year-pill no-print">📅 <select id="yearSelect" aria-label="Tax year"></select></div>
-        <button class="year-pill no-print" id="settingsBtn" type="button" aria-label="Settings" style="margin-left:8px;">⚙️</button>
-      </header>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AgentDeduct — The real estate agent's business companion</title>
+  <meta name="description" content="AgentDeduct helps real estate agents capture business expenses, keep receipts, document mileage, and hand organized records to their CPA. Join the Agent Beta.">
+  <link rel="canonical" href="https://staging-marketing.agentdeduct.pages.dev/">
+  <meta name="robots" content="noindex, nofollow">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="AgentDeduct — The real estate agent's business companion">
+  <meta property="og:description" content="Capture business expenses, keep receipts, document mileage, and hand organized records to your CPA.">
+  <meta property="og:url" content="https://staging-marketing.agentdeduct.pages.dev/">
+  <meta property="og:image" content="https://staging-marketing.agentdeduct.pages.dev/assets/social-card.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AgentDeduct — The real estate agent's business companion">
+  <meta name="twitter:description" content="Capture business expenses, keep receipts, document mileage, and hand organized records to your CPA.">
+  <meta name="twitter:image" content="https://staging-marketing.agentdeduct.pages.dev/assets/social-card.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-      <main id="views">
-        <section class="view" id="view-home" aria-label="Home"></section>
-        <section class="view" id="view-drives" aria-label="Drives"></section>
-        <section class="view" id="view-deals" aria-label="Deals"></section>
-        <section class="view" id="view-reports" aria-label="Reports"></section>
-        <section class="view" id="view-settings" aria-label="Settings"></section>
-      </main>
+  <header class="site-header">
+    <div class="nav-bar">
+      <a class="brand" href="/" aria-label="AgentDeduct home">
+        <img src="/assets/logo-mark.png" alt="AgentDeduct logo" width="38" height="38">
+        <span>AgentDeduct</span>
+      </a>
+      <nav aria-label="Primary">
+        <button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+        <ul class="nav-links" id="primary-nav">
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/blog">Journal</a></li>
+          <li><a href="/support">Support</a></li>
+          <li><a class="nav-cta" href="/beta">Join the Agent Beta</a></li>
+        </ul>
+      </nav>
     </div>
+  </header>
 
-    <nav class="tabbar no-print" aria-label="Main navigation">
-      <div class="tabbar-in">
-        <button class="tab active" data-tab="home" type="button"><span class="ti">🏠</span>Home</button>
-        <button class="tab" data-tab="drives" type="button"><span class="ti">🚗</span>Drives</button>
-        <button type="button" id="fabAdd" aria-label="Add expense or drive">
-          <span class="fab">+</span>
-          <span class="fab-label">Add</span>
-        </button>
-        <button class="tab" data-tab="deals" type="button"><span class="ti">🏘️</span>Deals</button>
-        <button class="tab" data-tab="reports" type="button"><span class="ti">📊</span>Reports</button>
-      </div>
-    </nav>
-
-    <div class="scrim" id="scrim"></div>
-    <div class="sheet" id="addSheet" role="dialog" aria-modal="true" aria-label="Add expense or drive">
-      <div class="grabber"></div>
-      <h2 id="sheetTitle">Log expense</h2>
-      <button class="btn-inline ghost" id="sheetClose" type="button" style="position:absolute;top:14px;right:16px;">Close</button>
-      <div class="seg" role="tablist">
-        <button type="button" id="segExpense" class="active">💰 Expense</button>
-        <button type="button" id="segDrive">🚗 Drive</button>
-      </div>
-
-      <div id="paneExpense">
-        <div class="field"><label for="fAmount">Amount</label>
-          <div class="amount-wrap"><span class="cur">$</span>
-          <input id="fAmount" class="amount-input" type="number" inputmode="decimal" step="0.01" min="0" placeholder="0.00" /></div>
-        </div>
-        <div class="field"><label>Category</label><div class="cat-grid" id="catGrid"></div></div>
-        <div class="field"><label for="fVendor">Vendor / what was it?</label>
-          <input id="fVendor" type="text" list="vendorList" placeholder="MLS, photographer, brokerage…" autocomplete="off" />
-          <datalist id="vendorList"></datalist>
-        </div>
-        <div class="field" id="giftWrap" style="display:none;"><label for="fGiftFor">Who was the gift for?</label>
-          <input id="fGiftFor" type="text" placeholder="Client name" autocomplete="off" />
-        </div>
-        <div class="warn" id="giftWarn" style="display:none;"></div>
-        <div class="field"><label for="fDate">Date</label><input id="fDate" type="date" /></div>
-        <div class="field"><label for="fDeal">Property (deal)</label><select id="fDeal"></select></div>
-        <div class="field"><label>Was this all for work?</label>
-          <div class="choice-row">
-            <button type="button" class="choice active" id="choiceYes">Yes, 100%</button>
-            <button type="button" class="choice" id="choicePartly">Partly</button>
-          </div>
-          <div id="pctWrap" style="display:none;margin-top:8px;">
-            <label for="fPct" class="hint">What % was for work?</label>
-            <input id="fPct" type="number" min="1" max="100" value="80" />
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+        <div>
+          <img class="hero-logo" src="/assets/logo-mark.png" alt="AgentDeduct logo: white AD monogram with a gold checkmark on deep green" width="84" height="84">
+          <h1 id="hero-title">AgentDeduct</h1>
+          <p class="tagline">The real estate agent's business companion.</p>
+          <p>You remember the showing, the client, and the deal. AgentDeduct helps you capture the business expenses in between — while they're fresh — and keeps them organized for your CPA.</p>
+          <div class="cta-row">
+            <a class="btn btn-hero" href="/beta">Join the Agent Beta</a>
+            <a class="btn btn-outline-light" href="#app">See the App</a>
           </div>
         </div>
-        <div class="field"><label for="fPurpose">Purpose / note</label>
-          <textarea id="fPurpose" rows="2" placeholder="Client showing, listing marketing…"></textarea>
+        <div>
+          <div class="phone-frame" role="img" aria-label="Placeholder for an app screenshot from the iPhone beta">
+            <div class="phone-screen">
+              <p>App screenshot<br>— from the iPhone beta</p>
+            </div>
+          </div>
         </div>
-        <div class="field"><label>Receipt</label>
-          <button class="receipt-btn" id="receiptBtn" type="button"><span class="ri">📸</span><span id="receiptName">No receipt attached</span></button>
-          <input id="receiptInput" class="hidden-file" type="file" accept="image/*,.pdf" capture="environment" />
-          <p class="ocr-status" id="ocrStatus"></p>
-        </div>
-        <button class="btn-primary" id="saveExpenseBtn" type="button">Save expense</button>
       </div>
+    </section>
 
-      <div id="paneDrive" style="display:none;">
-        <div class="field"><label for="dMiles">Miles</label>
-          <input id="dMiles" class="amount-input" type="number" inputmode="decimal" step="0.1" min="0" placeholder="0" />
+    <section aria-labelledby="slip-title">
+      <div class="container">
+        <span class="eyebrow">The problem</span>
+        <h2 id="slip-title">The expenses that slip through busy days</h2>
+        <div class="split">
+          <div>
+            <p>A showing runs long. You grab lunch between appointments. You swing by the office supply store on the way to a listing presentation, then drive forty minutes to meet an inspector.</p>
+            <p>By the evening, you remember the showing, the client, and the deal — but the small business expenses between them blur together. A receipt stays in the cup holder. Mileage goes unlogged. A month later, reconstructing it all feels impossible.</p>
+          </div>
+          <div>
+            <p>AgentDeduct is built for that exact moment: the thirty seconds after the expense happens. Log it while it's fresh, attach the receipt, note what it was for — and move on with your day.</p>
+            <p class="lede">Small captures, made in the moment, become a complete record by tax time.</p>
+          </div>
         </div>
-        <div class="field"><label for="dPurpose">Purpose</label>
-          <input id="dPurpose" type="text" placeholder="Showing — 123 Main St" autocomplete="off" />
-        </div>
-        <div class="field"><label for="dDate">Date</label><input id="dDate" type="date" /></div>
-        <div class="field"><label for="dDeal">Property (deal)</label><select id="dDeal"></select></div>
-        <div class="field"><label for="dFrom">From (optional)</label><input id="dFrom" type="text" autocomplete="off" /></div>
-        <div class="field"><label for="dTo">To (optional)</label><input id="dTo" type="text" autocomplete="off" /></div>
-        <p class="hint" id="driveRateHint"></p>
-        <button class="btn-primary" id="saveDriveBtn" type="button">Save drive</button>
       </div>
+    </section>
+
+    <section class="band" id="app" aria-labelledby="app-title">
+      <div class="container">
+        <span class="eyebrow">See the app</span>
+        <h2 id="app-title">What AgentDeduct does today</h2>
+        <p class="lede">The iPhone beta covers the everyday record-keeping a working agent needs.</p>
+        <ul class="cap-list">
+          <li><strong>Expense categories</strong><span>Log spending under clear business categories made for how agents actually work.</span></li>
+          <li><strong>Receipt attachments</strong><span>Photograph a receipt and keep it attached to the expense, so the proof is never a crumpled paper again.</span></li>
+          <li><strong>Business-use percentage</strong><span>Mark how much of an expense was truly business, so mixed spending stays honest.</span></li>
+          <li><strong>Mileage documentation</strong><span>Record business drives with purpose and trip details, so the miles behind your showings are written down.</span></li>
+          <li><strong>Property context</strong><span>Tag expenses and drives to a property, keeping each listing's costs together.</span></li>
+          <li><strong>CPA exports</strong><span>Send your accountant organized records and summaries instead of a shoebox of receipts.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section aria-labelledby="cpa-title">
+      <div class="container">
+        <span class="eyebrow">Tax time</span>
+        <h2 id="cpa-title">A cleaner handoff to your CPA</h2>
+        <p>When it's time to file, AgentDeduct turns a year of small captures into organized records and summaries your accountant can actually use — expenses by category, receipts attached, mileage documented, everything tied to properties where it applies.</p>
+        <p>To be clear about what it isn't: AgentDeduct does not perform bank reconciliation, does not certify deductions, and does not replace your CPA. It gives you — and your accountant — a complete, honest starting point.</p>
+      </div>
+    </section>
+
+    <section class="band-deep" aria-labelledby="next-title">
+      <div class="container">
+        <span class="eyebrow">What's next</span>
+        <h2 id="next-title">Where AgentDeduct is headed</h2>
+        <div class="roadmap">
+          <span class="planned-tag">Planned — not yet available</span>
+          <h3>Conversational AI with Agent</h3>
+          <p>Talk naturally about your day and let Agent help capture the business details — the companion experience the product is named for.</p>
+          <h3>Calendar connections</h3>
+          <p>Connect your calendar so showings and appointments can help reconcile the drives and expenses around them.</p>
+          <p style="margin-bottom:0">These are on the roadmap. The beta focuses on getting everyday capture right first.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq" aria-labelledby="faq-title">
+      <div class="container">
+        <span class="eyebrow">Questions</span>
+        <h2 id="faq-title">Frequently asked</h2>
+        <details>
+          <summary>Is AgentDeduct available now?</summary>
+          <p>AgentDeduct is in early beta on iPhone. Joining the Agent Beta list means we'll email you when your invitation is ready — it's not an instant download.</p>
+        </details>
+        <details>
+          <summary>Does AgentDeduct replace my CPA?</summary>
+          <p>No. AgentDeduct organizes your records and exports them for your accountant. Tax decisions stay between you and your CPA — the app doesn't certify deductions or give tax advice.</p>
+        </details>
+        <details>
+          <summary>Does it sync between my iPhone and the web?</summary>
+          <p>Not yet. Records live on the device where you saved them, and CPA exports reflect the records saved on that iPhone. Full cloud sync is still in progress.</p>
+        </details>
+        <details>
+          <summary>Does it track my mileage automatically?</summary>
+          <p>Background mileage tracking is implemented but still in real-world testing — locked-screen behavior and battery use are being validated before it's presented as finished.</p>
+        </details>
+        <details>
+          <summary>What does it cost?</summary>
+          <p>There's no pricing to announce yet. The beta is about learning what working agents need; pricing decisions will come later and will be stated plainly.</p>
+        </details>
+        <details>
+          <summary>Where is my data kept?</summary>
+          <p>On your device. The iPhone app stores your records on the phone; the web app keeps them in your browser. An optional Google Drive backup can copy them to your own Drive. See the <a href="/privacy">privacy draft</a> for details.</p>
+        </details>
+      </div>
+    </section>
+
+    <section class="tight" aria-labelledby="invite-title">
+      <div class="container">
+        <div class="final-cta">
+          <h2 id="invite-title">Get your business records in order</h2>
+          <p class="lede">Join the Agent Beta and help shape the companion for working agents.</p>
+          <div class="cta-row" style="justify-content:center">
+            <a class="btn btn-primary" href="/beta">Join the Agent Beta</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="/assets/logo-mark.png" alt="" width="32" height="32">
+          <span>AgentDeduct</span>
+        </div>
+        <ul class="footer-links">
+          <li><a href="/about">About</a></li>
+          <li><a href="/blog">Journal</a></li>
+          <li><a href="/beta">Beta</a></li>
+          <li><a href="/support">Support</a></li>
+          <li><a href="/privacy">Privacy</a></li>
+          <li><a href="/terms">Terms</a></li>
+        </ul>
+      </div>
+      <p class="footer-note">AgentDeduct is in early beta. It does not replace your CPA.<br>&copy; <span data-year>2026</span> AgentDeduct.</p>
     </div>
+  </footer>
 
-    <div class="toast" id="toast" role="status"></div>
-
-    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
-    <script src="js/store.js?v=7"></script>
-    <script src="js/track.js?v=7"></script>
-    <script src="js/ocr.js?v=7"></script>
-    <script src="js/gps.js?v=7"></script>
-    <script src="js/auth.js?v=9"></script>
-    <script src="js/install.js?v=7"></script>
-    <script src="js/talk-parse.js?v=9"></script>
-    <script src="js/talk.js?v=9"></script>
-    <script src="js/app.js?v=7"></script>
-    <script src="js/views-home.js?v=7"></script>
-    <script src="js/views-add.js?v=7"></script>
-    <script src="js/views-drives.js?v=7"></script>
-    <script src="js/views-deals.js?v=7"></script>
-    <script src="js/views-reports.js?v=7"></script>
-    <script src="js/views-settings.js?v=7"></script>
-    <script>
-      if ("serviceWorker" in navigator && location.protocol.indexOf("http") === 0) {
-        window.addEventListener("load", function () {
-          navigator.serviceWorker.register("sw.js?v=7").catch(function () {});
-        });
-      }
-    </script>
-  </body>
+  <script src="/marketing.js" defer></script>
+</body>
 </html>
