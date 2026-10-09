@@ -218,9 +218,9 @@
     d.addEventListener("click", function () { nudge(i); });
   });
 
-  /* Pause while hovered, focused, or touched; resume after */
-  root.addEventListener("mouseenter", stopAuto);
-  root.addEventListener("mouseleave", startAuto);
+  /* Pause while keyboard-focused or touched; resume after.
+     (No hover-pause: on desktop the cursor naturally rests on the hero,
+     which made autoplay look broken.) */
   root.addEventListener("focusin", stopAuto);
   root.addEventListener("focusout", startAuto);
   root.addEventListener("touchstart", stopAuto, { passive: true });
