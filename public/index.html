@@ -47,20 +47,50 @@
       <div class="container hero-grid">
         <div>
           <img class="hero-logo" src="/assets/logo-mark.png" alt="AgentDeduct logo: white AD monogram with a gold checkmark on deep green" width="84" height="84">
-          <h1 id="hero-title">AgentDeduct</h1>
-          <p class="tagline">The real estate agent's business companion.</p>
-          <p>You remember the showing, the client, and the deal. AgentDeduct helps you capture the business expenses in between — while they're fresh — and keeps them organized for your CPA.</p>
+          <p class="eyebrow-light">AgentDeduct — The Realtor's Business Companion</p>
+          <h1 id="hero-title">Meet Agent — the AI business companion for real estate agents.</h1>
+          <p class="hero-sub">Talk hands-free between showings. Agent captures your expenses, mileage, and receipts, and organizes everything for your CPA.</p>
           <div class="cta-row">
             <a class="btn btn-hero" href="/beta">Join the Agent Beta</a>
             <a class="btn btn-outline-light" href="#app">See the App</a>
           </div>
         </div>
         <div>
-          <div class="phone-frame" role="img" aria-label="Placeholder for an app screenshot from the iPhone beta">
-            <div class="phone-screen">
-              <p>App screenshot<br>— from the iPhone beta</p>
-            </div>
+          <div class="phone-frame">
+            <img src="/assets/screens/home-savings.jpg" alt="AgentDeduct home screen showing estimated tax savings" width="370" height="800" fetchpriority="high">
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="talk-title">
+      <div class="container">
+        <div class="split">
+          <div>
+            <span class="eyebrow">How it works</span>
+            <h2 id="talk-title">Talk. Agent handles the paperwork.</h2>
+            <p class="lede">You're driving between showings — not doing data entry. So just talk, and let Agent do the writing.</p>
+            <ol class="steps">
+              <li>
+                <strong>Speak.</strong>
+                <p>Talk hands-free while you drive — just say what happened: the lunch, the drive, the receipt.</p>
+              </li>
+              <li>
+                <strong>Agent structures it.</strong>
+                <p>Agent turns your words into organized expense and mileage records, with the details filled in.</p>
+              </li>
+              <li>
+                <strong>You confirm.</strong>
+                <p>Review what Agent captured and confirm — nothing is saved without your OK.</p>
+              </li>
+            </ol>
+          </div>
+          <figure class="shot">
+            <div class="shot-frame">
+              <img src="/assets/screens/talk-listening.jpg" alt="AgentDeduct talk capture listening screen" width="370" height="800" loading="lazy">
+            </div>
+            <figcaption>Talk capture — just speak</figcaption>
+          </figure>
         </div>
       </div>
     </section>
@@ -95,15 +125,73 @@
           <li><strong>Property context</strong><span>Tag expenses and drives to a property, keeping each listing's costs together.</span></li>
           <li><strong>CPA exports</strong><span>Send your accountant organized records and summaries instead of a shoebox of receipts.</span></li>
         </ul>
+
+        <div class="carousel" id="app-carousel">
+          <div class="carousel-stage">
+            <div class="carousel-phone">
+              <div class="carousel-viewport">
+                <div class="carousel-track">
+                  <div class="carousel-slide" data-caption="Today's estimated tax savings, live" role="group" aria-roledescription="slide" aria-label="1 of 8">
+                    <img src="/assets/screens/home-savings.jpg" alt="AgentDeduct home screen showing estimated tax savings" width="370" height="800">
+                  </div>
+                  <div class="carousel-slide" data-caption="Your today command center" role="group" aria-roledescription="slide" aria-label="2 of 8">
+                    <img src="/assets/screens/command-center.jpg" alt="AgentDeduct today command center with talk capture and quick log" width="370" height="800" loading="lazy">
+                  </div>
+                  <div class="carousel-slide" data-caption="Talk capture — just speak" role="group" aria-roledescription="slide" aria-label="3 of 8">
+                    <img src="/assets/screens/talk-listening.jpg" alt="AgentDeduct talk capture listening screen" width="370" height="800" loading="lazy">
+                  </div>
+                  <div class="carousel-slide" data-caption="Expense categories built for agents" role="group" aria-roledescription="slide" aria-label="4 of 8">
+                    <img src="/assets/screens/expense-categories.jpg" alt="AgentDeduct expense category picker" width="370" height="800" loading="lazy">
+                  </div>
+                  <div class="carousel-slide" data-caption="Business mileage documentation" role="group" aria-roledescription="slide" aria-label="5 of 8">
+                    <img src="/assets/screens/mileage.jpg" alt="AgentDeduct mileage tracking screen" width="370" height="800" loading="lazy">
+                  </div>
+                  <div class="carousel-slide" data-caption="One-tap export for your CPA" role="group" aria-roledescription="slide" aria-label="6 of 8">
+                    <img src="/assets/screens/cpa-export.jpg" alt="AgentDeduct export for CPA screen" width="370" height="800" loading="lazy">
+                  </div>
+                  <div class="carousel-slide" data-caption="Connected apps" role="group" aria-roledescription="slide" aria-label="7 of 8">
+                    <img src="/assets/screens/connected-apps.jpg" alt="AgentDeduct connected apps screen" width="370" height="800" loading="lazy">
+                  </div>
+                  <div class="carousel-slide" data-caption="Cloud account and settings" role="group" aria-roledescription="slide" aria-label="8 of 8">
+                    <img src="/assets/screens/settings.jpg" alt="AgentDeduct settings screen" width="370" height="800" loading="lazy">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button type="button" class="carousel-arrow carousel-prev" aria-label="Previous screenshot">&#8249;</button>
+            <button type="button" class="carousel-arrow carousel-next" aria-label="Next screenshot">&#8250;</button>
+          </div>
+          <div class="carousel-dots" role="group" aria-label="Choose screenshot">
+            <button type="button" class="carousel-dot active" aria-current="true" aria-label="Screenshot 1: Today's estimated tax savings, live"></button>
+            <button type="button" class="carousel-dot" aria-label="Screenshot 2: Your today command center"></button>
+            <button type="button" class="carousel-dot" aria-label="Screenshot 3: Talk capture — just speak"></button>
+            <button type="button" class="carousel-dot" aria-label="Screenshot 4: Expense categories built for agents"></button>
+            <button type="button" class="carousel-dot" aria-label="Screenshot 5: Business mileage documentation"></button>
+            <button type="button" class="carousel-dot" aria-label="Screenshot 6: One-tap export for your CPA"></button>
+            <button type="button" class="carousel-dot" aria-label="Screenshot 7: Connected apps"></button>
+            <button type="button" class="carousel-dot" aria-label="Screenshot 8: Cloud account and settings"></button>
+          </div>
+          <p class="carousel-caption" aria-live="polite">Today's estimated tax savings, live</p>
+        </div>
       </div>
     </section>
 
     <section aria-labelledby="cpa-title">
       <div class="container">
-        <span class="eyebrow">Tax time</span>
-        <h2 id="cpa-title">A cleaner handoff to your CPA</h2>
-        <p>When it's time to file, AgentDeduct turns a year of small captures into organized records and summaries your accountant can actually use — expenses by category, receipts attached, mileage documented, everything tied to properties where it applies.</p>
-        <p>To be clear about what it isn't: AgentDeduct does not perform bank reconciliation, does not certify deductions, and does not replace your CPA. It gives you — and your accountant — a complete, honest starting point.</p>
+        <div class="split">
+          <div>
+            <span class="eyebrow">Tax time</span>
+            <h2 id="cpa-title">A cleaner handoff to your CPA</h2>
+            <p>When it's time to file, AgentDeduct turns a year of small captures into organized records and summaries your accountant can actually use — expenses by category, receipts attached, mileage documented, everything tied to properties where it applies.</p>
+            <p>To be clear about what it isn't: AgentDeduct does not perform bank reconciliation, does not certify deductions, and does not replace your CPA. It gives you — and your accountant — a complete, honest starting point.</p>
+          </div>
+          <figure class="shot">
+            <div class="shot-frame">
+              <img src="/assets/screens/cpa-export.jpg" alt="AgentDeduct export for CPA screen showing expense and mileage summaries" width="370" height="800" loading="lazy">
+            </div>
+            <figcaption>One-tap export for your CPA</figcaption>
+          </figure>
+        </div>
       </div>
     </section>
 
@@ -111,13 +199,23 @@
       <div class="container">
         <span class="eyebrow">What's next</span>
         <h2 id="next-title">Where AgentDeduct is headed</h2>
-        <div class="roadmap">
-          <span class="planned-tag">Planned — not yet available</span>
-          <h3>Conversational AI with Agent</h3>
-          <p>Talk naturally about your day and let Agent help capture the business details — the companion experience the product is named for.</p>
-          <h3>Calendar connections</h3>
-          <p>Connect your calendar so showings and appointments can help reconcile the drives and expenses around them.</p>
-          <p style="margin-bottom:0">These are on the roadmap. The beta focuses on getting everyday capture right first.</p>
+        <div class="split">
+          <div class="roadmap">
+            <span class="planned-tag">Planned — not yet available</span>
+            <h3>Richer conversation with Agent</h3>
+            <p>Today you talk to capture. Next, Agent will ask follow-up questions, handle corrections, and summarize your day back to you — a real conversation, not just capture.</p>
+            <h3>Calendar connections</h3>
+            <p>Connect your calendar so showings are automatically matched to the drives around them.</p>
+            <h3>CRM and bookkeeping connections</h3>
+            <p>Send your organized records where they need to go — your CRM, your bookkeeping — without retyping anything.</p>
+            <p style="margin-bottom:0">Today: talk to capture. Next: full conversation. The beta focuses on getting everyday capture right first.</p>
+          </div>
+          <figure class="shot">
+            <div class="shot-frame">
+              <img src="/assets/screens/connected-apps.jpg" alt="AgentDeduct connected apps screen showing available-now and planned connectors" width="370" height="800" loading="lazy">
+            </div>
+            <figcaption>Available-now vs. planned connectors</figcaption>
+          </figure>
         </div>
       </div>
     </section>
@@ -156,7 +254,7 @@
     <section class="tight" aria-labelledby="invite-title">
       <div class="container">
         <div class="final-cta">
-          <h2 id="invite-title">Get your business records in order</h2>
+          <h2 id="invite-title">Be among the first agents Agent works for</h2>
           <p class="lede">Join the Agent Beta and help shape the companion for working agents.</p>
           <div class="cta-row" style="justify-content:center">
             <a class="btn btn-primary" href="/beta">Join the Agent Beta</a>

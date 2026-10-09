@@ -501,3 +501,151 @@ fieldset.field {
   .site-header { position: relative; }
   .nav-bar { position: relative; }
 }
+
+/* ---------- Screenshot carousel ---------- */
+.carousel { max-width: 340px; margin: 2.5rem auto 0; }
+.carousel-stage { position: relative; width: 230px; margin: 0 auto; }
+.carousel-phone {
+  border: 10px solid #101d16;
+  border-radius: 42px;
+  overflow: hidden;
+  background: #101d16;
+  box-shadow: 0 14px 34px rgba(13, 77, 47, 0.28);
+}
+.carousel-viewport { overflow: hidden; border-radius: 30px; }
+.carousel-track { display: flex; transition: transform 0.5s ease; }
+.carousel-slide { min-width: 100%; }
+.carousel-slide img { display: block; width: 100%; height: auto; }
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 50%;
+  border: 2px solid var(--green-deep);
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--green-deep);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0 0.2rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+}
+.carousel-prev { left: -1.5rem; }
+.carousel-next { right: -1.5rem; }
+.carousel-arrow:hover { background: var(--white); }
+.carousel-dots {
+  display: flex;
+  gap: 0.65rem;
+  justify-content: center;
+  margin-top: 1.4rem;
+  flex-wrap: wrap;
+}
+.carousel-dot {
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  border: 2px solid var(--green);
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+}
+.carousel-dot.active { background: var(--green); }
+.carousel-caption {
+  margin-top: 0.8rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  min-height: 1.6em;
+  text-align: center;
+}
+@media (prefers-reduced-motion: reduce) {
+  .carousel-track { transition: none; }
+}
+
+/* ---------- Static contextual screenshots ---------- */
+figure.shot { margin: 0; text-align: center; }
+.shot-frame {
+  width: 200px;
+  margin: 0 auto;
+  border: 8px solid #101d16;
+  border-radius: 36px;
+  overflow: hidden;
+  background: #101d16;
+  box-shadow: 0 12px 30px rgba(13, 77, 47, 0.22);
+}
+.shot-frame img { display: block; width: 100%; height: auto; }
+figure.shot figcaption {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+.band-deep figure.shot figcaption { color: #dce7e0; }
+
+/* ---------- Hero static screenshot ---------- */
+.phone-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 26px;
+}
+
+/* ---------- Article images ---------- */
+.article figure { margin: 2rem 0; }
+.article figure img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(13, 77, 47, 0.14);
+}
+.article figcaption {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  margin-top: 0.5rem;
+}
+
+/* ---------- Positioning: Agent companion ---------- */
+.eyebrow-light {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold-bright);
+  margin: 0 0 0.75rem;
+}
+.hero-sub { font-size: 1.15rem; }
+
+/* Numbered steps */
+.steps {
+  list-style: none;
+  margin: 1.75rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 1.4rem;
+  counter-reset: step;
+}
+.steps li { position: relative; padding-left: 3.2rem; }
+.steps li::before {
+  counter-increment: step;
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 0.1rem;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  background: var(--green-deep);
+  color: var(--white);
+  font-weight: 800;
+  font-size: 1.05rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.steps li strong { display: block; font-size: 1.05rem; margin-bottom: 0.25rem; }
+.steps li p { margin: 0; color: var(--ink-soft); }

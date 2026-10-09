@@ -160,3 +160,95 @@
       });
   });
 })();
+
+/* Screenshot carousel — auto-advance with dots, arrows, swipe, keyboard.
+   Honors prefers-reduced-motion (manual navigation only in that case). */
+(function () {
+  "use strict";
+  var root = document.getElementById("app-carousel");
+  if (!root) return;
+
+  var track = root.querySelector(".carousel-track");
+  var slides = Array.prototype.slice.call(root.querySelectorAll(".carousel-slide"));
+  var prev = root.querySelector(".carousel-prev");
+  var next = root.querySelector(".carousel-next");
+  var dots = Array.prototype.slice.call(root.querySelectorAll(".carousel-dot"));
+  var caption = root.querySelector(".carousel-caption");
+  if (!track || !slides.length) return;
+
+  var reduceMotion = window.matchMedia &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var index = 0;
+  var timer = null;
+
+  function render() {
+    track.style.transform = "translateX(-" + index * 100 + "%)";
+    for (var i = 0; i < slides.length; i++) {
+      var active = i === index;
+      slides[i].setAttribute("aria-hidden", active ? "false" : "true");
+      if (dots[i]) {
+        dots[i].classList.toggle("active", active);
+        if (active) dots[i].setAttribute("aria-current", "true");
+        else dots[i].removeAttribute("aria-current");
+      }
+    }
+    if (caption) caption.textContent = slides[index].getAttribute("data-caption") || "";
+  }
+
+  function go(i) {
+    index = (i + slides.length) % slides.length;
+    render();
+  }
+
+  function startAuto() {
+    if (reduceMotion || timer) return;
+    timer = window.setInterval(function () { go(index + 1); }, 4000);
+  }
+
+  function stopAuto() {
+    if (timer) { window.clearInterval(timer); timer = null; }
+  }
+
+  function nudge(i) { go(i); stopAuto(); startAuto(); }
+
+  if (prev) prev.addEventListener("click", function () { nudge(index - 1); });
+  if (next) next.addEventListener("click", function () { nudge(index + 1); });
+  dots.forEach(function (d, i) {
+    d.addEventListener("click", function () { nudge(i); });
+  });
+
+  /* Pause while hovered, focused, or touched; resume after */
+  root.addEventListener("mouseenter", stopAuto);
+  root.addEventListener("mouseleave", startAuto);
+  root.addEventListener("focusin", stopAuto);
+  root.addEventListener("focusout", startAuto);
+  root.addEventListener("touchstart", stopAuto, { passive: true });
+  root.addEventListener("touchend", startAuto, { passive: true });
+
+  /* Swipe support */
+  var startX = null;
+  root.addEventListener("touchstart", function (e) {
+    startX = e.touches[0].clientX;
+  }, { passive: true });
+  root.addEventListener("touchend", function (e) {
+    if (startX === null) return;
+    var dx = e.changedTouches[0].clientX - startX;
+    startX = null;
+    if (Math.abs(dx) > 40) nudge(index + (dx < 0 ? 1 : -1));
+  }, { passive: true });
+
+  /* Arrow keys when focus is inside the carousel */
+  root.addEventListener("keydown", function (e) {
+    if (e.key === "ArrowLeft") { e.preventDefault(); nudge(index - 1); }
+    else if (e.key === "ArrowRight") { e.preventDefault(); nudge(index + 1); }
+  });
+
+  /* Don't run the timer in a hidden tab */
+  document.addEventListener("visibilitychange", function () {
+    if (document.hidden) stopAuto();
+    else startAuto();
+  });
+
+  render();
+  startAuto();
+})();
