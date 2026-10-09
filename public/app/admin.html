@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AgentDeduct Activity Dashboard</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <div>
+          <p class="eyebrow">Private admin</p>
+          <div class="brand-title">
+            <img src="assets/agentdeduct-icon-navy.png?v=9" alt="" />
+            <h1>Activity</h1>
+          </div>
+          <p class="tagline">Anonymous feature usage only. No agent expense records, receipts, mileage, vendors, or tax data.</p>
+        </div>
+      </div>
+    </header>
+
+    <main class="shell">
+      <section class="panel admin-login" id="loginPanel">
+        <div class="panel-header">
+          <div>
+            <p class="eyebrow">Dashboard access</p>
+            <h2>Enter admin token</h2>
+          </div>
+        </div>
+        <form id="adminForm">
+          <label>
+            Admin token
+            <input id="adminToken" type="password" autocomplete="current-password" required />
+          </label>
+          <button class="primary" type="submit">View dashboard</button>
+        </form>
+      </section>
+
+      <section class="summary-grid hidden" id="adminMetrics" aria-label="Anonymous activity dashboard">
+        <article class="metric">
+          <span>Total visits</span>
+          <strong id="totalVisits">0</strong>
+        </article>
+        <article class="metric">
+          <span>Users</span>
+          <strong id="users">0</strong>
+        </article>
+        <article class="metric">
+          <span>Expenses added</span>
+          <strong id="expensesAdded">0</strong>
+        </article>
+        <article class="metric accent">
+          <span>Receipts attached</span>
+          <strong id="receiptsAttached">0</strong>
+        </article>
+        <article class="metric">
+          <span>CSV exports</span>
+          <strong id="csvExports">0</strong>
+        </article>
+        <article class="metric">
+          <span>Data downloads</span>
+          <strong id="dataDownloads">0</strong>
+        </article>
+        <article class="metric">
+          <span>OCR scans attempted</span>
+          <strong id="ocrScansAttempted">0</strong>
+        </article>
+        <article class="metric">
+          <span>OCR scans failed</span>
+          <strong id="ocrScansFailed">0</strong>
+        </article>
+      </section>
+
+      <section class="privacy-strip hidden" id="adminStatus">
+        <div>
+          <strong>Last updated</strong>
+          <span id="updatedAt">No activity yet</span>
+        </div>
+        <span class="privacy-pill">Anonymous counts only</span>
+      </section>
+    </main>
+
+    <script src="admin.js"></script>
+  </body>
+</html>
+
