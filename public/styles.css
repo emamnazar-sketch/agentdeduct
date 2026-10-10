@@ -579,13 +579,39 @@ fieldset.field {
   cursor: pointer;
   padding: 0;
 }
-.carousel-dot.active { background: var(--green); }
 .carousel-caption {
   margin-top: 0.8rem;
-  font-weight: 600;
-  color: var(--ink-soft);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--gold);
   min-height: 1.6em;
   text-align: center;
+}
+/* Active dot gets the gold treatment too */
+.carousel-dot.active { background: var(--gold); border-color: var(--gold); }
+
+/* ---------- Day-in-the-life band: warm break from the green ---------- */
+.dayband { background: #f7f3ea; padding: 4rem 0; }
+.dayband-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 3rem;
+  align-items: center;
+}
+.dayband-photo { margin: 0; }
+.dayband-photo img {
+  display: block; width: 100%; height: auto;
+  border-radius: 18px;
+  box-shadow: 0 18px 45px rgba(13, 77, 47, 0.18);
+  border: 1px solid rgba(176, 125, 30, 0.25);
+}
+.dayband .eyebrow { color: var(--gold); }
+.dayband h2 { color: var(--green-deep); margin: 0.5rem 0 1rem; }
+.dayband .lede { color: var(--ink-soft); }
+.dayband .lede em { color: var(--gold); font-style: normal; font-weight: 700; }
+@media (max-width: 820px) {
+  .dayband-grid { grid-template-columns: 1fr; gap: 1.75rem; }
+  .dayband { padding: 2.75rem 0; }
 }
 @media (prefers-reduced-motion: reduce) {
   .carousel-track { transition: none; }
