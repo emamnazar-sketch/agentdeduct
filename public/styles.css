@@ -664,6 +664,39 @@ fieldset.field {
 .sources { padding-left: 1.25rem; }
 .sources li { margin-bottom: 0.4rem; }
 
+/* ---------- Journal in-article app CTA + related reading ---------- */
+.app-cta {
+  background: var(--green-dark);
+  border-radius: var(--radius);
+  padding: 2rem 1.75rem;
+  margin: 2.5rem 0;
+  text-align: center;
+}
+.app-cta .eyebrow { color: var(--gold); }
+.app-cta h3 {
+  color: #fff;
+  font-size: 1.5rem;
+  margin: 0.5rem 0 0.75rem;
+}
+.app-cta p { color: rgba(255, 255, 255, 0.85); max-width: 36rem; margin: 0 auto 1.25rem; }
+.app-cta p strong { color: #fff; }
+.app-cta-buttons { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; margin-bottom: 1rem; }
+.app-cta .btn-outline { border-color: rgba(255,255,255,0.5); color: #fff; }
+.app-cta .btn-outline:hover { border-color: #fff; background: rgba(255,255,255,0.08); }
+.app-cta-note { font-size: 0.85rem !important; color: rgba(255,255,255,0.65) !important; margin-bottom: 0 !important; }
+.app-cta-note a { color: var(--gold); }
+.related-reading {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 1.25rem 1.5rem;
+  margin: 2rem 0;
+  background: var(--surface);
+}
+.related-reading h3 { margin: 0 0 0.5rem; font-size: 1.1rem; }
+.related-reading ul { margin: 0; padding-left: 1.25rem; }
+.related-reading li { margin-bottom: 0.35rem; }
+.related-reading li:last-child { margin-bottom: 0; }
+
 /* ---------- Day-in-the-life band: warm break from the green ---------- */
 .dayband { background: #f7f3ea; padding: 4rem 0; }
 .dayband-grid {
