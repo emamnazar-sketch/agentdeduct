@@ -31,7 +31,7 @@
     fab.id = "talkFab";
     fab.className = "talk-fab";
     fab.type = "button";
-    fab.setAttribute("aria-label", "Talk to AgentDeduct");
+    fab.setAttribute("aria-label", "Talk to Agent");
     fab.innerHTML = "💬";
     fab.addEventListener("click", open);
     document.body.appendChild(fab);
@@ -41,10 +41,10 @@
     sheet.className = "sheet talk-sheet";
     sheet.setAttribute("role", "dialog");
     sheet.setAttribute("aria-modal", "true");
-    sheet.setAttribute("aria-label", "Talk to AgentDeduct");
+    sheet.setAttribute("aria-label", "Talk to Agent");
     sheet.innerHTML =
       '<div class="grabber"></div>' +
-      '<h2>💬 Talk to AgentDeduct</h2>' +
+      '<h2>💬 Talk to Agent</h2>' +
       '<button class="btn-inline ghost" id="talkClose" type="button" style="position:absolute;top:14px;right:16px;">Close</button>' +
       '<p class="hint" style="margin:0 0 10px;">Just say what you spent or drove — I\'ll log it.</p>' +
       '<div class="talk-msgs" id="talkMsgs"></div>' +

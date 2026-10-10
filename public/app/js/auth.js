@@ -39,7 +39,7 @@
       '<div class="gate-card gate-wide">' +
       '<div class="gate-top">' +
         '<img class="gate-logo" src="assets/agentdeduct-logo-horizontal.png?v=8" alt="AgentDeduct">' +
-        '<p class="gate-sub">The mileage-first tax deduction app for real estate agents.</p>' +
+        '<p class="gate-sub">The Realtor\'s Business Companion. Meet Agent.</p>' +
         '<a class="gbtn" href="/api/auth/login">' +
           '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">' +
           '<path fill="#4285F4" d="M23.5 12.3c0-.9-.1-1.5-.3-2.3H12v4.3h6.5c-.1 1.1-.8 2.7-2.4 3.8l-.1.4 3.4 2.6.3.1c2.1-2 3.8-4.9 3.8-8.9z"/>' +
@@ -52,12 +52,12 @@
         '<p class="gate-note">We only see your name and email.<br>Your tax data stays yours.</p>' +
       "</div>" +
       '<div class="gate-info">' +
-        "<h2>What AgentDeduct does</h2>" +
-        "<p>AgentDeduct helps real estate agents capture every deductible mile and dollar. Log drives and expenses in seconds, snap receipt photos, and get tax-ready totals — built for busy agents.</p>" +
+        "<h2>What Agent does for you</h2>" +
+        "<p>Agent is the AI business companion for real estate agents. Talk between showings and it captures your expenses, mileage, and receipts — then organizes everything for your CPA. You talk. The paperwork handles itself.</p>" +
         '<ul class="gate-feats">' +
-          "<li><span>🚗</span><span><b>Mileage tracking</b> — log business drives with IRS-ready records.</span></li>" +
-          "<li><span>💬</span><span><b>Talk to AgentDeduct</b> — say what you spent and it files the expense.</span></li>" +
+          "<li><span>💬</span><span><b>Talk to Agent</b> — say what you spent or drove and it files the record.</span></li>" +
           "<li><span>🧾</span><span><b>Receipt scanner</b> — snap a photo and the totals are read automatically.</span></li>" +
+          "<li><span>🚗</span><span><b>Mileage log</b> — business drives with IRS-ready records.</span></li>" +
           "<li><span>💾</span><span><b>Google Drive backup</b> — your data backs up automatically to a file in your own Drive.</span></li>" +
           "<li><span>📊</span><span><b>Tax reports</b> — clean deduction totals when filing time comes.</span></li>" +
         "</ul>" +
