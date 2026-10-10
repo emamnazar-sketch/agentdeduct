@@ -628,7 +628,7 @@ figure.shot { margin: 0; text-align: center; }
   background: #101d16;
   box-shadow: 0 12px 30px rgba(13, 77, 47, 0.22);
 }
-.shot-frame img { display: block; width: 100%; height: auto; }
+.shot-frame img, .shot-frame video { display: block; width: 100%; height: auto; }
 figure.shot figcaption {
   margin-top: 0.75rem;
   font-size: 0.9rem;
