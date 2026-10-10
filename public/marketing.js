@@ -141,8 +141,35 @@
           form.reset();
           showStatus(
             "success",
-            "You\u2019re on the list \u2014 we\u2019ll email you when your beta invitation is ready."
+            "You\u2019re on the list \u2014 we\u2019ll email you when your beta invitation is ready." +
+              '<div class="refer">' +
+              "<p><strong>Know another agent?</strong> Agents trust agents \u2014 send them the beta link:</p>" +
+              '<div class="refer-row">' +
+              '<input type="text" id="refer-link" readonly value="https://agentdeduct.com/beta" aria-label="Beta signup link to share">' +
+              '<button type="button" id="refer-copy">Copy link</button>' +
+              "</div>" +
+              '<p class="refer-note" id="refer-note" role="status"></p>' +
+              "</div>"
           );
+          var copyBtn = document.getElementById("refer-copy");
+          if (copyBtn) {
+            copyBtn.addEventListener("click", function () {
+              var linkInput = document.getElementById("refer-link");
+              var note = document.getElementById("refer-note");
+              function done(msg) { if (note) note.textContent = msg; }
+              function fallback() {
+                linkInput.select();
+                try { document.execCommand("copy"); done("Copied \u2014 send it to your favorite agent."); }
+                catch (e) { done("Copy it manually \u2014 the link is selected."); }
+              }
+              if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(linkInput.value).then(
+                  function () { done("Copied \u2014 send it to your favorite agent."); },
+                  fallback
+                );
+              } else { fallback(); }
+            });
+          }
         } else {
           throw new Error("not-ok");
         }
