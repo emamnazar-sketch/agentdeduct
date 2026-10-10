@@ -38,8 +38,9 @@
     veil.innerHTML =
       '<div class="gate-card gate-wide">' +
       '<div class="gate-top">' +
+        '<p class="gate-eyebrow">The Realtor\'s Business Companion</p>' +
         '<img class="gate-logo" src="assets/agentdeduct-logo-horizontal.png?v=8" alt="AgentDeduct">' +
-        '<p class="gate-sub">The Realtor\'s Business Companion. Meet Agent.</p>' +
+        '<p class="gate-sub">Talk between showings — Agent captures your expenses, mileage, and receipts.</p>' +
         '<a class="gbtn" href="/api/auth/login">' +
           '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">' +
           '<path fill="#4285F4" d="M23.5 12.3c0-.9-.1-1.5-.3-2.3H12v4.3h6.5c-.1 1.1-.8 2.7-2.4 3.8l-.1.4 3.4 2.6.3.1c2.1-2 3.8-4.9 3.8-8.9z"/>' +

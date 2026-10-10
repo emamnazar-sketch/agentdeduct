@@ -265,37 +265,64 @@ img { max-width: 100%; }
 /* ---- Google sign-in gate ---- */
 .gate-veil {
   position: fixed; inset: 0; z-index: 200;
-  background: var(--bg-grad, #f4f6f3);
+  background:
+    radial-gradient(1100px 550px at 50% -8%, rgba(217, 164, 65, 0.16), transparent 60%),
+    radial-gradient(800px 480px at 88% 108%, rgba(21, 115, 71, 0.4), transparent 60%),
+    linear-gradient(160deg, #0a2e1f 0%, #0d4d2f 55%, #092b1d 100%);
   display: flex; align-items: center; justify-content: center;
   padding: calc(24px + env(safe-area-inset-top)) 24px calc(24px + env(safe-area-inset-bottom));
 }
-.gate-card {
-  width: 100%; max-width: 380px; text-align: center;
-  background: var(--surface); border: 1px solid var(--line); border-radius: 24px;
-  padding: 40px 28px 32px; box-shadow: var(--shadow);
+.gate-veil::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+  background-size: 26px 26px;
 }
-.gate-logo { height: 162px; width: auto; border-radius: 12px; margin-bottom: 12px; background: #fff; padding: 6px 16px; }
+.gate-card {
+  position: relative;
+  width: 100%; max-width: 400px; text-align: center;
+  background: #fff; border-radius: 28px;
+  padding: 44px 32px 36px;
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.45), 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+.gate-eyebrow {
+  font-size: 12px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--gold); margin: 0 0 16px;
+}
+.gate-logo { height: 104px; width: auto; border-radius: 22px; margin-bottom: 20px; box-shadow: 0 10px 28px rgba(13, 77, 47, 0.28); }
 .gate-card h1 { font-size: 30px; letter-spacing: -0.02em; margin: 0 0 6px; }
-.gate-sub { color: var(--muted); font-size: 15px; margin: 0 0 26px; line-height: 1.45; }
+.gate-sub { color: var(--muted); font-size: 16px; margin: 0 0 28px; line-height: 1.5; }
 .gbtn {
   display: flex; align-items: center; justify-content: center; gap: 12px;
   background: #fff; color: #1f1f1f; border: 1px solid #dadce0; border-radius: 999px;
-  padding: 13px 20px; font-size: 16px; font-weight: 600; text-decoration: none;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12); transition: transform 120ms ease;
+  padding: 15px 20px; font-size: 16px; font-weight: 600; text-decoration: none;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 120ms ease, box-shadow 160ms ease;
 }
+.gbtn:hover { box-shadow: 0 6px 20px rgba(0, 0, 0, 0.16); }
 .gbtn:active { transform: scale(0.98); }
 .gate-note { color: var(--muted); font-size: 13px; margin: 22px 0 0; line-height: 1.5; }
 body.is-gated { overflow: hidden; }
 /* ---- Public landing gate (logged-out visitors) ---- */
 .gate-veil.gate-landing { align-items: flex-start; overflow-y: auto; }
-.gate-card.gate-wide { max-width: 600px; text-align: left; padding: 36px 30px; margin: auto 0; }
+.gate-card.gate-wide { max-width: 620px; text-align: left; padding: 46px 42px; margin: auto 0; }
 .gate-top { text-align: center; }
-.gate-info h2 { font-size: 17px; margin: 28px 0 8px; letter-spacing: -0.01em; }
-.gate-info p { font-size: 14.5px; line-height: 1.6; margin: 0 0 10px; }
-.gate-feats { list-style: none; margin: 14px 0 4px; padding: 0; display: grid; gap: 10px; }
-.gate-feats li { display: flex; gap: 10px; font-size: 14.5px; line-height: 1.55; }
-.gate-feats li > span:first-child { font-size: 19px; line-height: 1.4; }
-.gate-links { margin: 22px 0 0; font-size: 13.5px; }
+.gate-top .gate-logo { height: 96px; }
+.gate-info h2 { font-size: 18px; margin: 30px 0 10px; letter-spacing: -0.01em; }
+.gate-info p { font-size: 15px; line-height: 1.65; margin: 0 0 10px; color: #3c4a3f; }
+.gate-feats { list-style: none; margin: 16px 0 4px; padding: 0; display: grid; gap: 10px; }
+.gate-feats li {
+  display: flex; gap: 12px; align-items: center;
+  font-size: 14.5px; line-height: 1.55;
+  background: #f4f8f5; border: 1px solid #e2ece4; border-radius: 16px;
+  padding: 12px 14px;
+}
+.gate-feats li > span:first-child {
+  font-size: 20px; line-height: 1;
+  background: #fff; border-radius: 12px; width: 42px; height: 42px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 2px 6px rgba(13, 77, 47, 0.1);
+}
+.gate-links { margin: 26px 0 0; font-size: 13.5px; text-align: center; }
 
 /* ---- Drive link modal ---- */
 .modal-veil {
